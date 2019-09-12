@@ -1441,11 +1441,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\GIP\\GIP\\GIP\\GIP.csproj",
+      "projectUniqueName": "D:\\GitHub\\GIP\\GIP\\GIP.csproj",
       "projectName": "GIP",
-      "projectPath": "D:\\GitHub\\GIP\\GIP\\GIP\\GIP.csproj",
+      "projectPath": "D:\\GitHub\\GIP\\GIP\\GIP.csproj",
       "packagesPath": "C:\\Users\\BonsG\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\GIP\\GIP\\GIP\\obj\\",
+      "outputPath": "D:\\GitHub\\GIP\\GIP\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
