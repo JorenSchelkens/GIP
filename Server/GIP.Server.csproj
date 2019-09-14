@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Client\GIP.Client.csproj" />
-    <ProjectReference Include="..\Shared\GIP.Shared.csproj" />
   </ItemGroup>
 
 </Project>
