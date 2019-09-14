@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Blazor.Hosting;
 
-namespace GIP
+namespace GIP.Client
 {
     public class Program
     {

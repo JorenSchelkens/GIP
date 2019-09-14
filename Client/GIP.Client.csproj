@@ -13,5 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.0.0-preview9.19424.4" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview9.19424.4" PrivateAssets="all" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\GIP.Shared.csproj" />
+  </ItemGroup>
 
 </Project>
