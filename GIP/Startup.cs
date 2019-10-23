@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using GIP.Areas.Identity;
 using GIP.Data;
 using EmbeddedBlazorContent;
+using MatBlazor;
 
 namespace GIP
 {
@@ -41,6 +42,16 @@ namespace GIP
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
             services.AddSingleton<WeatherForecastService>();
+
+            services.AddMatToaster(config =>
+            {
+                config.Position = MatToastPosition.BottomRight;
+                config.PreventDuplicates = true;
+                config.NewestOnTop = true;
+                config.ShowCloseButton = true;
+                config.MaximumOpacity = 100;
+                config.VisibleStateDuration = 5000;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
