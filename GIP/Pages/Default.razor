@@ -71,14 +71,33 @@
 
         </div>
     </div>
-    
+
+}
+
+@if (showDeel3)
+{
+
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <h3>Het bestand wordt gedownload...</h3>
+
+            </div>
+
+        </div>
+    </div>
+
 }
 
 @code {
 
     private string richting { get; set; }
+
     private bool showDeel1 = true;
     private bool showDeel2 = false;
+    private bool showDeel3 = false;
 
     private void Generate()
     {
