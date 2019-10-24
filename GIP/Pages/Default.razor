@@ -37,6 +37,12 @@
 
             <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
 
+                
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
                 <MatButton OnClick="@Generate" Raised="true">Submit</MatButton>
 
             </div>
@@ -82,7 +88,13 @@
 
             <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
 
-                <h3>Het bestand wordt gedownload...</h3>
+                <h3>De PowerPoint wordt gedownload...</h3>
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <MatButton OnClick="@Reset" Raised="true">Nieuwe Download</MatButton>
 
             </div>
 
@@ -107,6 +119,7 @@
             showDeel1 = false;
             showDeel2 = true;
             Toaster.Add("De PowerPoint wordt gegenereerd", MatToastType.Success, "Succes");
+
         }
         else
         {
@@ -117,6 +130,7 @@
 
     private void Reset()
     {
+        showDeel3 = false;
         showDeel2 = false;
         showDeel1 = true;
     }
