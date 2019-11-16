@@ -17,7 +17,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CalculationDomain\CalculationDomain.csproj" />
-    <ProjectReference Include="..\DownloadDomain\DownloadDomain.csproj" />
   </ItemGroup>
 
 </Project>
