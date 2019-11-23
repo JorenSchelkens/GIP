@@ -1,4 +1,4 @@
-﻿namespace CalculationDomain.ErasmusHogeSchool
+﻿namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
 {
     public class UitstroomRij
     {

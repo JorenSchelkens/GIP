@@ -5,7 +5,7 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
 {
     public class InstroomBlad
     {
-        public List<InstroomRij> instroomRijen { get; set; } = new List<InstroomRij>();
+        public List<InstroomRij> InstroomRijen { get; set; } = new List<InstroomRij>();
 
         public InstroomBlad(string filePath, string opleiding)
         {
@@ -31,7 +31,7 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
                     instroomRij.SoOnderwijsvorm = row.columns[2];
                     //Traject
 
-                    instroomRijen.Add(instroomRij);
+                    this.InstroomRijen.Add(instroomRij);
 
                 }
             }
