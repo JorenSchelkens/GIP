@@ -30,7 +30,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Doorstroom
                     doorstroomRij.StudiepuntenCredits = int.Parse(row.columns[1]);
                     doorstroomRij.VolgtOlodInSchijf1 = (row.columns[2] == "Ja") ? true : false;
                     doorstroomRij.NieuweStudentInInstelling = (row.columns[3] == "Ja") ? true : false;
-                    //Traject
+
+                    if (row.columns[4].Contains("1/"))
+                    {
+                        int temp = row.columns[4].IndexOf("1/");
+                        string sub = row.columns[4].Substring(temp + 2, 2);
+                        doorstroomRij.Trajectschijfverdeling = int.Parse(sub);
+                    }
+
                     doorstroomRij.SoOnderwijsvorm = row.columns[5];
                     doorstroomRij.Stamnummer = row.columns[6].Substring(0, 4);
                     doorstroomRij.KanDiplomaBehalen = row.columns[7];
