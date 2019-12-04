@@ -72,5 +72,10 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
 
             return instroomRijen;
         }
+
+        public void FilterOpSO()
+        {
+
+        }
     }
 }

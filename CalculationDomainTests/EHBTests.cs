@@ -2,6 +2,7 @@ using Xunit;
 using CalculationDomain.ErasmusHogeSchool.Instroom;
 using CalculationDomain.ErasmusHogeSchool.Doorstroom;
 using CalculationDomain.ErasmusHogeSchool.Uitstroom;
+using CalculationDomain.ErasmusHogeSchool;
 using System.Collections.Generic;
 
 namespace CalculationDomainTests
@@ -9,14 +10,16 @@ namespace CalculationDomainTests
     public class EHBTests
     {
         private const string Opleiding = "Bachelor in de Vroedkunde";
-        private const string AbsPath = @"C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\Documentation\";
+        private const string AbsPath = @"d:\GitHub\GIP\Documentation\";
 
         private const string InstroomPath = AbsPath + "Kopie van Instroom dd.08.10.2019 - 19-20.xlsx";
         private const string DoorstroomPath = AbsPath + "Kopie van Doorstroom dd.08.10.2019 -18-19.xlsx";
         private const string UitstroomPath = AbsPath + "Kopie van Uitstroom dd.08.10.2019 - 18-19.xlsx";
 
-        //d:\GitHub\GIP\Documentation\
-        //C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\Documentation\
+        // d:\GitHub\GIP\Documentation\
+        // C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\Documentation\
+
+        #region Instroom
 
         [Fact]
         public void LeesBestandInInstroomTest()
@@ -34,6 +37,10 @@ namespace CalculationDomainTests
             Assert.NotEmpty(temp);
         }
 
+        #endregion
+
+        #region Doorstroom
+
         [Fact]
         public void LeesBestandInDoorstroomTest()
         {
@@ -41,11 +48,32 @@ namespace CalculationDomainTests
             Assert.NotEmpty(doorstroomBlad.DoorstroomRijen);
         }
 
+        #endregion
+
+        #region Uitstroom
+
         [Fact]
         public void LeesBestandInUitstroomTest()
         {
             UitstroomBlad uitstroomBlad = new UitstroomBlad(UitstroomPath, Opleiding);
             Assert.NotEmpty(uitstroomBlad.UitstroomRijen);
         }
+
+        #endregion
+
+        #region Main
+
+        [Fact]
+        public void MainLoadTest()
+        {
+            Main main = new Main(Opleiding);
+            main.Load();
+
+            Assert.NotNull(main.InstroomBlad);
+            Assert.NotNull(main.DoorstroomBlad);
+            Assert.NotNull(main.UitstroomBlad);
+        }
+
+        #endregion
     }
 }

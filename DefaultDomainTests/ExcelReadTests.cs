@@ -5,7 +5,7 @@ namespace DefaultDomainTests
 {
     public class ExcelReadTests
     {
-        private const string AbsPath = @"C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\Documentation\";
+        private const string AbsPath = @"d:\GitHub\GIP\Documentation\";
 
         private const string InstroomPath = AbsPath + "Kopie van Instroom dd.08.10.2019 - 19-20.xlsx";
         private const string DoorstroomPath = AbsPath + "Kopie van Doorstroom dd.08.10.2019 -18-19.xlsx";
