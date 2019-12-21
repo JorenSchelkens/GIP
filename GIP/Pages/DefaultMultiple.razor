@@ -1,0 +1,261 @@
+﻿@page "/default2"
+@inject IMatToaster Toaster
+
+<style>
+    .knop {
+        min-width: 150px;
+    }
+</style>
+
+@if (showIntro)
+{
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <MatNumericUpDownField Label="Aantal PowerPoints genereren"
+                                       @bind-Value=@aantalPowerPoints
+                                       Style="width: 100%"
+                                       DecimalPlaces=0
+                                       Minimum=1>
+                </MatNumericUpDownField>
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <MatButton Class="knop" OnClick="@methodeShowDeel1" Raised="true">Ga door</MatButton>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+@if (showDeel1)
+{
+    #region Error
+    //Error
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            @for (int i = 0; i < aantalPowerPoints.Value; i++)
+            {
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                    <MatSelect Style="width: 100%" Label="Kies een richting" Enhanced="true" @bind-Value="@richtingen[i]">
+                        <MatOptionString Value="Bachelor in de Biomedische Laboratoriumtechnologie">Bachelor in de Biomedische Laboratoriumtechnologie</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Landschaps- en Tuinarchitectuur">Bachelor in de Landschaps- en Tuinarchitectuur</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Landschaps- en Tuinarchitectuur - Werktraject">Bachelor in de Landschaps- en Tuinarchitectuur - Werktraject</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Pediatrie en Neonatologie">Bachelor in de Pediatrie en Neonatologie</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Verpleegkunde 180sp">Bachelor in de Verpleegkunde 180sp</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Verpleegkunde 240sp">Bachelor in de Verpleegkunde 240sp</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Voedings- en Dieetkunde">Bachelor in de Voedings- en Dieetkunde</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Vroedkunde">Bachelor in de Vroedkunde</MatOptionString>
+                        <MatOptionString Value="Bachelor in het Zorgmanagement">Bachelor in het Zorgmanagement</MatOptionString>
+                        <MatOptionString Value="Nascholing Bio-informatica">Nascholing Bio-informatica</MatOptionString>
+                        <MatOptionString Value="Nascholing cosmetische wetenschappen">Nascholing cosmetische wetenschappen</MatOptionString>
+                        <MatOptionString Value="Nascholing Kansarmoede en zwangerschap in Brussel">Nascholing Kansarmoede en zwangerschap in Brussel</MatOptionString>
+                        <MatOptionString Value="Nascholing Kwaliteitsvolle postnatale zorgverlening na vervroegd ontslag uit het ziekenhuis">Nascholing Kwaliteitsvolle postnatale zorgverlening na vervroegd ontslag uit het ziekenhuis</MatOptionString>
+                        <MatOptionString Value="Nascholing mentorenopleiding verpleegkunde">Nascholing mentorenopleiding verpleegkunde</MatOptionString>
+                        <MatOptionString Value="Nascholing Point of Care Testen">Nascholing Point of Care Testen</MatOptionString>
+                        <MatOptionString Value="Nascholing Sportvoedingsadvies op maat geven – sportdiëtetiek">Nascholing Sportvoedingsadvies op maat geven – sportdiëtetiek</MatOptionString>
+                        <MatOptionString Value="Nascholing Voedingsbeleid in de geriaterische instelling">Nascholing Voedingsbeleid in de geriaterische instelling</MatOptionString>
+                        <MatOptionString Value="Nascholing Workshops Open Biolabo Brussel">Nascholing Workshops Open Biolabo Brussel</MatOptionString>
+                        <MatOptionString Value="Nascholing Ziekenhuisfarmacie">Nascholing Ziekenhuisfarmacie</MatOptionString>
+                        <MatOptionString Value="Postgraduaat Diabeteseducator">Postgraduaat Diabeteseducator</MatOptionString>
+                        <MatOptionString Value="Postgraduaat Forensisch Onderzoek">Postgraduaat Forensisch Onderzoek</MatOptionString>
+                        <MatOptionString Value="Postgraduate International forensic science and policing">Postgraduate International forensic science and policing</MatOptionString>
+                    </MatSelect>
+
+                </div>
+
+            }
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-4">
+
+                <MatButton OnClick="@Generate" Raised="true">Submit</MatButton>
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-4">
+
+                <MatButton OnClick="@Reset" Raised="true">Terug</MatButton>
+
+            </div>
+
+        </div>
+    </div>
+
+    #endregion
+    @*<div class="mat-layout-grid">
+            <div class="mat-layout-grid-inner">
+
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                    <MatSelect Style="width: 100%" Label="Kies een richting" Enhanced="true" @bind-Value="@richtingen[0]">
+                        <MatOptionString Value="Bachelor in de Biomedische Laboratoriumtechnologie">Bachelor in de Biomedische Laboratoriumtechnologie</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Landschaps- en Tuinarchitectuur">Bachelor in de Landschaps- en Tuinarchitectuur</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Landschaps- en Tuinarchitectuur - Werktraject">Bachelor in de Landschaps- en Tuinarchitectuur - Werktraject</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Pediatrie en Neonatologie">Bachelor in de Pediatrie en Neonatologie</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Verpleegkunde 180sp">Bachelor in de Verpleegkunde 180sp</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Verpleegkunde 240sp">Bachelor in de Verpleegkunde 240sp</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Voedings- en Dieetkunde">Bachelor in de Voedings- en Dieetkunde</MatOptionString>
+                        <MatOptionString Value="Bachelor in de Vroedkunde">Bachelor in de Vroedkunde</MatOptionString>
+                        <MatOptionString Value="Bachelor in het Zorgmanagement">Bachelor in het Zorgmanagement</MatOptionString>
+                        <MatOptionString Value="Nascholing Bio-informatica">Nascholing Bio-informatica</MatOptionString>
+                        <MatOptionString Value="Nascholing cosmetische wetenschappen">Nascholing cosmetische wetenschappen</MatOptionString>
+                        <MatOptionString Value="Nascholing Kansarmoede en zwangerschap in Brussel">Nascholing Kansarmoede en zwangerschap in Brussel</MatOptionString>
+                        <MatOptionString Value="Nascholing Kwaliteitsvolle postnatale zorgverlening na vervroegd ontslag uit het ziekenhuis">Nascholing Kwaliteitsvolle postnatale zorgverlening na vervroegd ontslag uit het ziekenhuis</MatOptionString>
+                        <MatOptionString Value="Nascholing mentorenopleiding verpleegkunde">Nascholing mentorenopleiding verpleegkunde</MatOptionString>
+                        <MatOptionString Value="Nascholing Point of Care Testen">Nascholing Point of Care Testen</MatOptionString>
+                        <MatOptionString Value="Nascholing Sportvoedingsadvies op maat geven – sportdiëtetiek">Nascholing Sportvoedingsadvies op maat geven – sportdiëtetiek</MatOptionString>
+                        <MatOptionString Value="Nascholing Voedingsbeleid in de geriaterische instelling">Nascholing Voedingsbeleid in de geriaterische instelling</MatOptionString>
+                        <MatOptionString Value="Nascholing Workshops Open Biolabo Brussel">Nascholing Workshops Open Biolabo Brussel</MatOptionString>
+                        <MatOptionString Value="Nascholing Ziekenhuisfarmacie">Nascholing Ziekenhuisfarmacie</MatOptionString>
+                        <MatOptionString Value="Postgraduaat Diabeteseducator">Postgraduaat Diabeteseducator</MatOptionString>
+                        <MatOptionString Value="Postgraduaat Forensisch Onderzoek">Postgraduaat Forensisch Onderzoek</MatOptionString>
+                        <MatOptionString Value="Postgraduate International forensic science and policing">Postgraduate International forensic science and policing</MatOptionString>
+                    </MatSelect>
+
+                </div>
+
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+
+
+                </div>
+
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-2">
+
+                    <MatButton Class="knop" OnClick="@Generate" Raised="true">Submit</MatButton>
+
+                </div>
+
+                <div class="mat-layout-grid-cell mat-layout-grid-cell-span-2">
+
+                    <MatButton Class="knop" OnClick="@Reset" Raised="true">Terug</MatButton>
+
+                </div>
+
+            </div>
+        </div>*@
+
+}
+
+@if (showDeel2)
+{
+
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <h3>Genereren...</h3>
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <MatProgressBar Indeterminate="true"></MatProgressBar>
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <MatButton Class="knop" OnClick="@Reset" Raised="true">Reset</MatButton>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+@if (showDeel3)
+{
+
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <h3>De PowerPoint wordt gedownload...</h3>
+
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+
+                <MatButton Class="knop" OnClick="@Reset" Raised="true">Nieuwe Download</MatButton>
+
+            </div>
+
+        </div>
+    </div>
+
+}
+
+@code {
+
+    private List<string> richtingen { get; set; } = new List<string>();
+
+    private bool showIntro = true;
+    private bool showDeel1 = false;
+    private bool showDeel2 = false;
+    private bool showDeel3 = false;
+
+    decimal? aantalPowerPoints = null;
+
+    private void Generate()
+    {
+
+        if (!(richtingen.Contains("")))
+        {
+            showDeel1 = false;
+            showDeel2 = true;
+            Toaster.Add("De PowerPoint wordt gegenereerd", MatToastType.Success, "Succes");
+
+        }
+        else
+        {
+            Toaster.Add("Gelieve een richting aan te duiden", MatToastType.Warning, "Error");
+        }
+
+    }
+
+    private void Reset()
+    {
+        showDeel3 = false;
+        showDeel2 = false;
+        showDeel1 = false;
+        showIntro = true;
+
+        richtingen = new List<string>();
+    }
+
+    private void methodeShowDeel1()
+    {
+
+        for (int i = 0; i < aantalPowerPoints.Value; i++)
+        {
+            richtingen.Add("");
+        }
+
+        showIntro = false;
+        showDeel1 = true;
+    }
+
+}

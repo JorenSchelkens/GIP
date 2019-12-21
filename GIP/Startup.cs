@@ -15,7 +15,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using GIP.Areas.Identity;
 using GIP.Data;
-using EmbeddedBlazorContent;
 using MatBlazor;
 
 namespace GIP
@@ -76,8 +75,6 @@ namespace GIP
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseEmbeddedBlazorContent(typeof(MatBlazor.BaseMatComponent).Assembly);
 
             app.UseEndpoints(endpoints =>
             {
