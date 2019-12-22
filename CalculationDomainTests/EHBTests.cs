@@ -34,7 +34,7 @@ namespace CalculationDomainTests
             InstroomBlad instroomBlad = new InstroomBlad(InstroomPath, Opleiding);
             instroomBlad.FilterOpNieuweStudent();
             List<InstroomRij> temp = instroomBlad.FilterOpVoltijds();
-            Assert.NotEmpty(temp);
+            Assert.Equal(47, temp.Count);
         }
 
         #endregion
@@ -72,6 +72,17 @@ namespace CalculationDomainTests
             Assert.NotNull(main.InstroomBlad);
             Assert.NotNull(main.DoorstroomBlad);
             Assert.NotNull(main.UitstroomBlad);
+        }
+
+        #endregion
+
+        #region PowerPoint
+
+        [Fact]
+        public void PowerPointSaveTest()
+        {
+            PowerPointClass powerPoint = new PowerPointClass();
+            Assert.NotNull(powerPoint);
         }
 
         #endregion

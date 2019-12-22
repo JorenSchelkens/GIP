@@ -9,7 +9,6 @@ namespace CalculationDomain.ErasmusHogeSchool
         public InstroomBlad InstroomBlad { get; set; }
         public DoorstroomBlad DoorstroomBlad { get; set; }
         public UitstroomBlad UitstroomBlad { get; set; }
-
         private string Filter { get; set; }
 
         public Main(string opleiding)

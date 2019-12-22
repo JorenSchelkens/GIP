@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Syncfusion.Presentation.Net.Core" Version="17.4.0.39" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DefaultDomain\DefaultDomain.csproj" />
   </ItemGroup>
 
