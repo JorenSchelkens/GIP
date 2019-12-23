@@ -73,9 +73,19 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
             return instroomRijen;
         }
 
-        public void FilterOpSO()
+        public List<InstroomRij> FilterOpGeneratieStudent()
         {
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
 
+            foreach (InstroomRij instroomRij in this.InstroomRijen)
+            {
+                if (instroomRij.GeneratieStudent)
+                {
+                    instroomRijen.Add(instroomRij);
+                }
+            }
+
+            return instroomRijen;
         }
     }
 }

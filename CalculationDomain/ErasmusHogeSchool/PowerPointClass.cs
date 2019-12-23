@@ -8,13 +8,25 @@ namespace CalculationDomain.ErasmusHogeSchool
         //https://help.syncfusion.com/file-formats/presentation/getting-started
         //https://www.asknumbers.com/centimeters-to-points.aspx
         public IPresentation PowerPoint { get; set; } = Presentation.Create();
+        private string Opleiding { get; set; }
 
-        public PowerPointClass()
+        public PowerPointClass(string opleiding)
         {
-            AddInstroomIntroSlide();
-            AddInstroomSlide();
+            this.Opleiding = opleiding;
+            this.AddFirstSlide(this.Opleiding);
+            this.AddInstroomIntroSlide();
+        }
 
-            Save();
+        public void AddFirstSlide(string opleiding)
+        {
+            ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
+            IShape textShape = slide.AddTextBox(100, 75, 756, 100);
+            IParagraph paragraph = textShape.TextBody.AddParagraph();
+            paragraph.HorizontalAlignment = HorizontalAlignmentType.Center;
+            ITextPart textPart = paragraph.AddTextPart(opleiding);
+
+            textPart.Font.FontSize = 40;
+            textPart.Font.Bold = true;
         }
 
         public void AddInstroomIntroSlide()
@@ -29,11 +41,18 @@ namespace CalculationDomain.ErasmusHogeSchool
             textPart.Font.Bold = true;
         }
 
-        public void AddInstroomSlide()
+        public void AddInstroomSlide(
+            int voltijds, 
+            int deeltijds, 
+            int totaal, 
+            int generatieStudent, 
+            int nietGeneratieStudent, 
+            int aandelInTotaal,
+            int aandeelInVoltijds)
         {
             ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
 
-            ITable table = slide.Tables.AddTable(8, 6, 100, 75, 583.94, 352.35);
+            ITable table = slide.Tables.AddTable(8, 6, 50, 20, 814.96, 435.57);
 
             DateTime currentYearTemp = DateTime.Today;
             string currentYear = currentYearTemp.Year.ToString();
@@ -57,11 +76,19 @@ namespace CalculationDomain.ErasmusHogeSchool
             table.Columns[0].Cells[5].TextBody.Text = "Niet-generatiestudent";
             table.Columns[0].Cells[6].TextBody.Text = "Aandeel generatiestud. in totale instroom";
             table.Columns[0].Cells[7].TextBody.Text = "Aandeel generatiestud. in voltijdse instroom";
+
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = voltijds.ToString();
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = deeltijds.ToString();
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = totaal.ToString();
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = generatieStudent.ToString();
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = nietGeneratieStudent.ToString();
+            table.Columns[table.Columns.Count - 1].Cells[6].TextBody.Text = $"{aandelInTotaal.ToString()}%";
+            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = $"{aandeelInVoltijds.ToString()}%";
         }
 
         public void Save()
         {
-            PowerPoint.Save("Cijferanalyse.pptx");
+            PowerPoint.Save($"{this.Opleiding}.pptx");
             PowerPoint.Close();
         }
     }

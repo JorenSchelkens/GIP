@@ -74,6 +74,18 @@ namespace CalculationDomainTests
             Assert.NotNull(main.UitstroomBlad);
         }
 
+        [Fact]
+        public void MainPowerPointTest()
+        {
+            Main main = new Main(Opleiding);
+            main.Load();
+
+            main.GenerateInstroomData();
+            main.SavePowerPoint();
+
+            Assert.NotNull(main.PowerPoint);
+        }
+
         #endregion
 
         #region PowerPoint
@@ -81,7 +93,12 @@ namespace CalculationDomainTests
         [Fact]
         public void PowerPointSaveTest()
         {
-            PowerPointClass powerPoint = new PowerPointClass();
+            PowerPointClass powerPoint = new PowerPointClass(Opleiding);
+
+            powerPoint.AddInstroomSlide(13, 12, 25, 10, 15, 20, 50);
+
+            powerPoint.Save();
+
             Assert.NotNull(powerPoint);
         }
 
