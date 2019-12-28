@@ -1,5 +1,9 @@
 ﻿@page "/default"
 @inject IMatToaster Toaster
+@inject Microsoft.JSInterop.IJSRuntime JS
+@inject GIP.Data.PresentationService service
+@using GIP.Data;
+@using System.IO;
 
 <style>
     .knop {
@@ -220,6 +224,8 @@
 
     decimal? aantalPowerPoints = null;
 
+    MemoryStream documentStream;
+
     private void Generate()
     {
 
@@ -228,7 +234,9 @@
             showDeel1 = false;
             showDeel2 = true;
             Toaster.Add("De PowerPoint wordt gegenereerd", MatToastType.Success, "Succes");
-
+            CreatePowerPoint();
+            showDeel2 = false;
+            showDeel3 = true;
         }
         else
         {
@@ -237,14 +245,21 @@
 
     }
 
+    protected async void CreatePowerPoint()
+    {
+        documentStream = service.CreatePowerPoint(richtingen[0]);
+        await JS.SaveAs($"{richtingen[0]}.pptx", documentStream.ToArray());
+    }
+
     private void Reset()
     {
         showDeel3 = false;
         showDeel2 = false;
         showDeel1 = false;
-        showIntro = true;
 
         richtingen = new List<string>();
+       
+        showIntro = true;
     }
 
     private void methodeShowDeel1()
@@ -258,5 +273,4 @@
         showIntro = false;
         showDeel1 = true;
     }
-
 }

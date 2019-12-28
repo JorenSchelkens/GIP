@@ -3,6 +3,7 @@ using CalculationDomain.ErasmusHogeSchool.Doorstroom;
 using CalculationDomain.ErasmusHogeSchool.Uitstroom;
 using System.Collections.Generic;
 using System;
+using System.IO;
 
 namespace CalculationDomain.ErasmusHogeSchool
 {
