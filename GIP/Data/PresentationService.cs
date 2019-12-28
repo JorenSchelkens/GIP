@@ -10,7 +10,7 @@ namespace GIP.Data
             Main main = new Main(opleiding);
             main.Load();
 
-            main.GenerateInstroomData();
+            main.GenerateInstroomData1();
 
             //Save the PowerPoint Presentation as stream
             MemoryStream stream = new MemoryStream();

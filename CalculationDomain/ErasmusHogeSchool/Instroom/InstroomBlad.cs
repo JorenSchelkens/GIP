@@ -43,26 +43,26 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
             }
         }
 
-        public void FilterOpNieuweStudent()
+        public List<InstroomRij> FilterOpNieuweStudent()
         {
-            List<InstroomRij> temp = new List<InstroomRij>();
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
 
             foreach (InstroomRij instroomRij in this.InstroomRijen)
             {
                 if (instroomRij.NieuweStudent)
                 {
-                    temp.Add(instroomRij);
+                    instroomRijen.Add(instroomRij);
                 }
             }
 
-            this.InstroomRijen = temp;
+            return instroomRijen;
         }
 
-        public List<InstroomRij> FilterOpVoltijds()
+        public List<InstroomRij> FilterOpVoltijds(List<InstroomRij> temp)
         {
             List<InstroomRij> instroomRijen = new List<InstroomRij>();
 
-            foreach (InstroomRij instroomRij in this.InstroomRijen)
+            foreach (InstroomRij instroomRij in temp)
             {
                 if(instroomRij.Trajectschijfverdeling >= 54)
                 {
@@ -73,11 +73,11 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
             return instroomRijen;
         }
 
-        public List<InstroomRij> FilterOpGeneratieStudent()
+        public List<InstroomRij> FilterOpGeneratieStudent(List<InstroomRij> temp)
         {
             List<InstroomRij> instroomRijen = new List<InstroomRij>();
 
-            foreach (InstroomRij instroomRij in this.InstroomRijen)
+            foreach (InstroomRij instroomRij in temp)
             {
                 if (instroomRij.GeneratieStudent)
                 {
@@ -86,6 +86,88 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
             }
 
             return instroomRijen;
+        }
+
+        public int FilterOpASO(List<InstroomRij> temp)
+        {
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
+
+            foreach (InstroomRij instroomRij in temp)
+            {
+                if (instroomRij.SoOnderwijsvorm == "ASO" || instroomRij.SoOnderwijsvorm == "vASO")
+                {
+                    instroomRijen.Add(instroomRij);
+                }
+            }
+
+            return instroomRijen.Count;
+        }
+
+        public int FilterOpTSO(List<InstroomRij> temp)
+        {
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
+
+            foreach (InstroomRij instroomRij in temp)
+            {
+                if (instroomRij.SoOnderwijsvorm == "TSO" || instroomRij.SoOnderwijsvorm == "vTSO")
+                {
+                    instroomRijen.Add(instroomRij);
+                }
+            }
+
+            return instroomRijen.Count;
+        }
+
+        public int FilterOpBSO(List<InstroomRij> temp)
+        {
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
+
+            foreach (InstroomRij instroomRij in temp)
+            {
+                if (instroomRij.SoOnderwijsvorm == "BSO" || instroomRij.SoOnderwijsvorm == "vBSO")
+                {
+                    instroomRijen.Add(instroomRij);
+                }
+            }
+
+            return instroomRijen.Count;
+        }
+
+        public int FilterOpKSO(List<InstroomRij> temp)
+        {
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
+
+            foreach (InstroomRij instroomRij in temp)
+            {
+                if (instroomRij.SoOnderwijsvorm == "KSO" || instroomRij.SoOnderwijsvorm == "vKSO")
+                {
+                    instroomRijen.Add(instroomRij);
+                }
+            }
+
+            return instroomRijen.Count;
+        }
+
+        public int FilterOpAndereSO(List<InstroomRij> temp)
+        {
+            List<InstroomRij> instroomRijen = new List<InstroomRij>();
+
+            foreach (InstroomRij instroomRij in temp)
+            {
+                if (instroomRij.SoOnderwijsvorm != "ASO" &&
+                    instroomRij.SoOnderwijsvorm != "vASO" &&
+                    instroomRij.SoOnderwijsvorm != "TSO" &&
+                    instroomRij.SoOnderwijsvorm != "vTSO" &&
+                    instroomRij.SoOnderwijsvorm != "BSO" &&
+                    instroomRij.SoOnderwijsvorm != "vBSO" &&
+                    instroomRij.SoOnderwijsvorm != "KSO" &&
+                    instroomRij.SoOnderwijsvorm != "vKSO")
+                {
+                    instroomRijen.Add(instroomRij);
+                }
+            }
+
+            return instroomRijen.Count;
         }
     }
 }

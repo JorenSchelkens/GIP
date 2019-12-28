@@ -32,8 +32,9 @@ namespace CalculationDomainTests
         public void FilterOpVoltijdsEnNieuweStudentInstroomTest()
         {
             InstroomBlad instroomBlad = new InstroomBlad(InstroomPath, Opleiding);
-            instroomBlad.FilterOpNieuweStudent();
-            List<InstroomRij> temp = instroomBlad.FilterOpVoltijds();
+            List<InstroomRij> instroomNieuweStudenten = instroomBlad.FilterOpNieuweStudent();
+            List<InstroomRij> temp = instroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
+
             Assert.Equal(47, temp.Count);
         }
 
@@ -80,7 +81,9 @@ namespace CalculationDomainTests
             Main main = new Main(Opleiding);
             main.Load();
 
-            main.GenerateInstroomData();
+            main.GenerateInstroomData1();
+            main.GenerateInstroomData2();
+
             main.SavePowerPoint();
 
             Assert.NotNull(main.PowerPoint);
@@ -95,7 +98,7 @@ namespace CalculationDomainTests
         {
             PowerPointClass powerPoint = new PowerPointClass(Opleiding);
 
-            powerPoint.AddInstroomSlide(13, 12, 25, 10, 15, 20, 50);
+            powerPoint.AddInstroomSlide1(13, 12, 25, 10, 15, 20, 50);
 
             powerPoint.Save();
 

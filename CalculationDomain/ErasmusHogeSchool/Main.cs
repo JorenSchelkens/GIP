@@ -3,7 +3,6 @@ using CalculationDomain.ErasmusHogeSchool.Doorstroom;
 using CalculationDomain.ErasmusHogeSchool.Uitstroom;
 using System.Collections.Generic;
 using System;
-using System.IO;
 
 namespace CalculationDomain.ErasmusHogeSchool
 {
@@ -33,23 +32,23 @@ namespace CalculationDomain.ErasmusHogeSchool
             this.UitstroomBlad = new UitstroomBlad(@"d:\GitHub\GIP\Documentation\Kopie van Uitstroom dd.08.10.2019 - 18-19.xlsx", this.Filter);
         }
 
-        public void GenerateInstroomData()
+        public void GenerateInstroomData1()
         {
-            this.InstroomBlad.FilterOpNieuweStudent();
-            List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds();
+            List<InstroomRij> instroomNieuweStudenten = this.InstroomBlad.FilterOpNieuweStudent();
+            List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
 
-            int deeltijds = this.InstroomBlad.InstroomRijen.Count - instroomVoltijdsTemp.Count;
-            int totaal = this.InstroomBlad.InstroomRijen.Count;
+            int deeltijds = instroomNieuweStudenten.Count - instroomVoltijdsTemp.Count;
+            int totaal = instroomNieuweStudenten.Count;
 
-            List<InstroomRij> instroomGeneratieStudentTemp = this.InstroomBlad.FilterOpGeneratieStudent();
+            List<InstroomRij> instroomGeneratieStudentTemp = this.InstroomBlad.FilterOpGeneratieStudent(instroomNieuweStudenten);
             int generatiestudent = instroomGeneratieStudentTemp.Count;
 
-            int nietGeneratiestudent = this.InstroomBlad.InstroomRijen.Count - generatiestudent;
+            int nietGeneratiestudent = instroomNieuweStudenten.Count - generatiestudent;
 
             double aandelInTotaal = ((double) generatiestudent / totaal) * 100;
             double aandeelInVoltijds = ((double) generatiestudent / instroomVoltijdsTemp.Count) * 100;
 
-            this.PowerPoint.AddInstroomSlide(
+            this.PowerPoint.AddInstroomSlide1(
                 instroomVoltijdsTemp.Count, 
                 deeltijds, 
                 totaal, 
@@ -57,6 +56,33 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nietGeneratiestudent,
                 (int)Math.Round(aandelInTotaal),
                 (int)Math.Round(aandeelInVoltijds));
+        }
+
+        public void GenerateInstroomData2()
+        {
+            List<InstroomRij> instroomNieuweStudenten = this.InstroomBlad.FilterOpNieuweStudent();
+            List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
+
+            this.PowerPoint.AddInstroomSlide2(
+                this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp),
+                instroomVoltijdsTemp.Count);
+
+            double aandelASO = ((double)this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelTSO = ((double)this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelBSO = ((double)this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelKSO = ((double)this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelAndereSO = ((double)this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+
+            this.PowerPoint.AddInstroomSlide3(
+                (int)Math.Round(aandelASO),
+                (int)Math.Round(aandelTSO),
+                (int)Math.Round(aandelBSO),
+                (int)Math.Round(aandelKSO),
+                (int)Math.Round(aandelAndereSO));
         }
 
         public void SavePowerPoint()
