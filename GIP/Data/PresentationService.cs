@@ -11,6 +11,7 @@ namespace GIP.Data
             main.Load();
 
             main.GenerateInstroomData1();
+            main.GenerateInstroomData2();
 
             //Save the PowerPoint Presentation as stream
             MemoryStream stream = new MemoryStream();
