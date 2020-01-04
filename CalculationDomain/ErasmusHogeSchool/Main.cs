@@ -48,7 +48,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             double aandelInTotaal = ((double) generatiestudent / totaal) * 100;
             double aandeelInVoltijds = ((double) generatiestudent / instroomVoltijdsTemp.Count) * 100;
 
-            this.PowerPoint.AddInstroomSlide1(
+            this.PowerPoint.ChangeInstroomSlide1(
                 instroomVoltijdsTemp.Count, 
                 deeltijds, 
                 totaal, 
@@ -63,7 +63,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             List<InstroomRij> instroomNieuweStudenten = this.InstroomBlad.FilterOpNieuweStudent();
             List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
 
-            this.PowerPoint.AddInstroomSlide2(
+            this.PowerPoint.ChangeInstroomSlide2(
                 this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp),
                 this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp),
                 this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp),
@@ -77,12 +77,55 @@ namespace CalculationDomain.ErasmusHogeSchool
             double aandelKSO = ((double)this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
             double aandelAndereSO = ((double)this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
 
-            this.PowerPoint.AddInstroomSlide3(
+            this.PowerPoint.ChangeInstroomSlide3(
                 (int)Math.Round(aandelASO),
                 (int)Math.Round(aandelTSO),
                 (int)Math.Round(aandelBSO),
                 (int)Math.Round(aandelKSO),
                 (int)Math.Round(aandelAndereSO));
+        }
+
+        public void GenerateInstroomData3()
+        {
+            List<InstroomRij> instroomGeneratieTemp = this.InstroomBlad.FilterOpGeneratieStudent(this.InstroomBlad.InstroomRijen);
+            List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomGeneratieTemp);
+
+            this.PowerPoint.ChangeInstroomSlide4(
+                this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp),
+                this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp),
+                instroomVoltijdsTemp.Count);
+
+            double aandelASO = ((double)this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelTSO = ((double)this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelBSO = ((double)this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelKSO = ((double)this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+            double aandelAndereSO = ((double)this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
+
+            this.PowerPoint.ChangeInstroomSlide5(
+                (int)Math.Round(aandelASO),
+                (int)Math.Round(aandelTSO),
+                (int)Math.Round(aandelBSO),
+                (int)Math.Round(aandelKSO),
+                (int)Math.Round(aandelAndereSO));
+        }
+
+        public void GenerateDoorstroomData1()
+        {
+
+        }
+
+        public void GenerateAll()
+        {
+            Load();
+
+            GenerateInstroomData1();
+            GenerateInstroomData2();
+            GenerateInstroomData3();
+
+            //GenerateDoorstroomData1();
         }
 
         public void SavePowerPoint()

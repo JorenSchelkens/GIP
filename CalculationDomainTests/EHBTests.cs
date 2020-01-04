@@ -79,10 +79,7 @@ namespace CalculationDomainTests
         public void MainPowerPointTest()
         {
             Main main = new Main(Opleiding);
-            main.Load();
-
-            main.GenerateInstroomData1();
-            main.GenerateInstroomData2();
+            main.GenerateAll();
 
             main.SavePowerPoint();
 
@@ -98,7 +95,25 @@ namespace CalculationDomainTests
         {
             PowerPointClass powerPoint = new PowerPointClass(Opleiding);
 
-            powerPoint.AddInstroomSlide1(13, 12, 25, 10, 15, 20, 50);
+            powerPoint.Save();
+
+            Assert.NotNull(powerPoint);
+        }
+
+        [Fact]
+        public void PowerPointOpenTest()
+        {
+            PowerPointClass powerPoint = new PowerPointClass(Opleiding);
+
+            Assert.NotNull(powerPoint);
+        }
+
+        [Fact]
+        public void PowerPointTestMethodTest()
+        {
+            PowerPointClass powerPoint = new PowerPointClass(Opleiding);
+
+            powerPoint.TestMethod();
 
             powerPoint.Save();
 

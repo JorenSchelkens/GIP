@@ -8,10 +8,7 @@ namespace GIP.Data
         public MemoryStream CreatePowerPoint(string opleiding)
         {
             Main main = new Main(opleiding);
-            main.Load();
-
-            main.GenerateInstroomData1();
-            main.GenerateInstroomData2();
+            main.GenerateAll();
 
             //Save the PowerPoint Presentation as stream
             MemoryStream stream = new MemoryStream();

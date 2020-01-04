@@ -7,61 +7,52 @@ namespace CalculationDomain.ErasmusHogeSchool
     {
         //https://help.syncfusion.com/file-formats/presentation/getting-started
         //https://www.asknumbers.com/centimeters-to-points.aspx
-        public IPresentation PowerPoint { get; set; } = Presentation.Create();
+        //https://help.syncfusion.com/file-formats/presentation/working-with-tables#modifying-the-table
+
+        // D:\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
+        // C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
+
+        public IPresentation PowerPoint { get; set; } = Presentation.Open(@"D:\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx");
         private string Opleiding { get; set; }
 
         public PowerPointClass(string opleiding)
         {
             this.Opleiding = opleiding;
-            this.AddFirstSlide(this.Opleiding);
-            this.AddInstroomIntroSlide1();
+
+            this.ChangeFirstSlide();
         }
 
-        public void AddFirstSlide(string opleiding)
+        public void TestMethod()
         {
-            ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
-            IShape textShape = slide.AddTextBox(100, 75, 756, 100);
-            IParagraph paragraph = textShape.TextBody.AddParagraph();
-            paragraph.HorizontalAlignment = HorizontalAlignmentType.Center;
-            ITextPart textPart = paragraph.AddTextPart(opleiding);
-
-            textPart.Font.FontSize = 40;
-            textPart.Font.Bold = true;
+            ChangeDoorstroomSlide1();
         }
 
-        public void AddInstroomIntroSlide1()
+        public void ChangeFirstSlide()
         {
-            ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
-            IShape textShape = slide.AddTextBox(100, 75, 756, 100);
-            IParagraph paragraph = textShape.TextBody.AddParagraph();
-            paragraph.HorizontalAlignment = HorizontalAlignmentType.Center;
-            ITextPart textPart = paragraph.AddTextPart("1. Instroom");
+            ISlide slide = this.PowerPoint.Slides[0];
+            IShape shape = slide.Shapes[0] as IShape;
+            IParagraph paragraph = shape.TextBody.Paragraphs[0];
+            ITextPart textPart = paragraph.TextParts[0];
 
-            textPart.Font.FontSize = 40;
-            textPart.Font.Bold = true;
+            textPart.Text = this.Opleiding;
         }
 
-        public void AddInstroomSlide1(
-            int voltijds, 
-            int deeltijds, 
-            int totaal, 
-            int generatieStudent, 
-            int nietGeneratieStudent, 
+        public void ChangeInstroomSlide1(
+            int voltijds,
+            int deeltijds,
+            int totaal,
+            int generatieStudent,
+            int nietGeneratieStudent,
             int aandelInTotaal,
             int aandeelInVoltijds)
         {
-            ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
 
-            IShape textShape = slide.AddTextBox(100, 0, 756, 100);
-            IParagraph paragraph = textShape.TextBody.AddParagraph();
-            paragraph.HorizontalAlignment = HorizontalAlignmentType.Center;
-            ITextPart textPart = paragraph.AddTextPart("1.1 Instroom");
+            ISlide slide = this.PowerPoint.Slides[5];
+            ITable table = slide.Tables[0];
 
-            ITable table = slide.Tables.AddTable(8, 6, 50, 40, 814.96, 435.57);
-
-            DateTime currentYearTemp = DateTime.Today;
+            DateTime currentYearTemp = GetCurrentAcademicYear();
             string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = DateTime.Today.AddYears(1);
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
             string nextYear = nextYearTemp.Year.ToString();
 
             for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
@@ -74,24 +65,16 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nextYear = nextYearTemp.Year.ToString();
             }
 
-            table.Columns[0].Cells[1].TextBody.Text = "Voltijds";
-            table.Columns[0].Cells[2].TextBody.Text = "Deeltijds";
-            table.Columns[0].Cells[3].TextBody.Text = "Totaal";
-            table.Columns[0].Cells[4].TextBody.Text = "Generatiestudent";
-            table.Columns[0].Cells[5].TextBody.Text = "Niet-generatiestudent";
-            table.Columns[0].Cells[6].TextBody.Text = "Aandeel generatiestud. in totale instroom";
-            table.Columns[0].Cells[7].TextBody.Text = "Aandeel generatiestud. in voltijdse instroom";
-
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = voltijds.ToString();
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = deeltijds.ToString();
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = totaal.ToString();
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = generatieStudent.ToString();
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = nietGeneratieStudent.ToString();
-            table.Columns[table.Columns.Count - 1].Cells[6].TextBody.Text = $"{aandelInTotaal.ToString()}%";
-            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = $"{aandeelInVoltijds.ToString()}%";
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringNonPercent(voltijds);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringNonPercent(deeltijds);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringNonPercent(totaal);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringNonPercent(generatieStudent);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringNonPercent(nietGeneratieStudent);
+            table.Columns[table.Columns.Count - 1].Cells[6].TextBody.Text = FormatStringPercent(aandelInTotaal);
+            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = FormatStringPercent(aandeelInVoltijds);
         }
 
-        public void AddInstroomSlide2(
+        public void ChangeInstroomSlide2(
             int aso,
             int tso,
             int bso,
@@ -99,20 +82,12 @@ namespace CalculationDomain.ErasmusHogeSchool
             int buiteland,
             int totaal)
         {
-            ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
+            ISlide slide = this.PowerPoint.Slides[6];
+            ITable table = slide.Tables[0];
 
-            IShape textShape = slide.AddTextBox(100, 0, 756, 100);
-            IParagraph paragraph = textShape.TextBody.AddParagraph();
-            paragraph.HorizontalAlignment = HorizontalAlignmentType.Center;
-            ITextPart textPart = paragraph.AddTextPart("1.2 Instroom - type SO");
-
-            ITable table = slide.Tables.AddTable(7, 9, 50, 40, 814.96, 435.57);
-
-            table.Rows[0].Cells[0].TextBody.Text = "Type SO";
-
-            DateTime currentYearTemp = DateTime.Today;
+            DateTime currentYearTemp = GetCurrentAcademicYear();
             string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = DateTime.Today.AddYears(1);
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
             string nextYear = nextYearTemp.Year.ToString();
 
             for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
@@ -125,42 +100,27 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nextYear = nextYearTemp.Year.ToString();
             }
 
-            table.Columns[0].Cells[1].TextBody.Text = "ASO";
-            table.Columns[0].Cells[2].TextBody.Text = "TSO";
-            table.Columns[0].Cells[3].TextBody.Text = "BSO";
-            table.Columns[0].Cells[4].TextBody.Text = "KSO";
-            table.Columns[0].Cells[5].TextBody.Text = "Buitenland of geen info";
-            table.Columns[0].Cells[6].TextBody.Text = "TOT";
-
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatString1(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatString1(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatString1(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatString1(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatString1(buiteland);
-            table.Columns[table.Columns.Count - 1].Cells[6].TextBody.Text = FormatString1(totaal);
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringNonPercent(aso);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringNonPercent(tso);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringNonPercent(bso);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringNonPercent(kso);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringNonPercent(buiteland);
+            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = FormatStringNonPercent(totaal);
         }
 
-        public void AddInstroomSlide3(
+        public void ChangeInstroomSlide3(
             int aso,
             int tso,
             int bso,
             int kso,
             int buiteland)
         {
-            ISlide slide = this.PowerPoint.Slides.Add(SlideLayoutType.Blank);
+            ISlide slide = this.PowerPoint.Slides[7];
+            ITable table = slide.Tables[0];
 
-            IShape textShape = slide.AddTextBox(100, 0, 756, 100);
-            IParagraph paragraph = textShape.TextBody.AddParagraph();
-            paragraph.HorizontalAlignment = HorizontalAlignmentType.Center;
-            ITextPart textPart = paragraph.AddTextPart("1.3 Instroom - type SO");
-
-            ITable table = slide.Tables.AddTable(6, 9, 50, 40, 814.96, 435.57);
-
-            table.Rows[0].Cells[0].TextBody.Text = "Type SO";
-
-            DateTime currentYearTemp = DateTime.Today;
+            DateTime currentYearTemp = GetCurrentAcademicYear();
             string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = DateTime.Today.AddYears(1);
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
             string nextYear = nextYearTemp.Year.ToString();
 
             for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
@@ -173,17 +133,118 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nextYear = nextYearTemp.Year.ToString();
             }
 
-            table.Columns[0].Cells[1].TextBody.Text = "ASO";
-            table.Columns[0].Cells[2].TextBody.Text = "TSO";
-            table.Columns[0].Cells[3].TextBody.Text = "BSO";
-            table.Columns[0].Cells[4].TextBody.Text = "KSO";
-            table.Columns[0].Cells[5].TextBody.Text = "Buitenland of geen info";
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringPercent(aso);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringPercent(tso);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringPercent(bso);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringPercent(kso);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringPercent(buiteland);
+        }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatString2(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatString2(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatString2(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatString2(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatString2(buiteland);
+        public void ChangeInstroomSlide4(
+            int aso,
+            int tso,
+            int bso,
+            int kso,
+            int buiteland,
+            int aantal)
+        {
+            ISlide slide = this.PowerPoint.Slides[8];
+            ITable table = slide.Tables[0];
+
+            DateTime currentYearTemp = GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringNonPercent(aso);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringNonPercent(tso);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringNonPercent(bso);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringNonPercent(kso);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringNonPercent(buiteland);
+            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = FormatStringNonPercent(aantal);
+        }
+
+        public void ChangeInstroomSlide5(
+            int aso,
+            int tso,
+            int bso,
+            int kso,
+            int buiteland)
+        {
+            ISlide slide = this.PowerPoint.Slides[9];
+            ITable table = slide.Tables[0];
+
+            DateTime currentYearTemp = GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringPercent(aso);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringPercent(tso);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringPercent(bso);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringPercent(kso);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringPercent(buiteland);
+        }
+
+        public void ChangeDoorstroomSlide1()
+        {
+            ISlide slide = this.PowerPoint.Slides[12];
+            ITable table = slide.Tables[0];
+
+            DateTime currentYearTemp = GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+
+
+
+            //TABEL 2 --> rechts boven
+            table = slide.Tables[1];
+
+            currentYearTemp = GetCurrentAcademicYear();
+            currentYear = currentYearTemp.Year.ToString();
+            nextYearTemp = currentYearTemp.AddYears(1);
+            nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
         }
 
         public void Save()
@@ -192,36 +253,34 @@ namespace CalculationDomain.ErasmusHogeSchool
             PowerPoint.Close();
         }
 
-        private string FormatString1(int toFormat)
+        private string FormatStringNonPercent(int toFormat)
         {
-            string temp;
-
             if (toFormat == 0)
             {
-                temp = "-";
+                return "-";
             }
-            else
-            {
-                temp = toFormat.ToString();
-            }
-
-            return temp;
+            return toFormat.ToString();
         }
 
-        private string FormatString2(int toFormat)
+        private string FormatStringPercent(int toFormat)
         {
-            string temp;
-
             if (toFormat == 0)
             {
-                temp = "-";
+                return "-";
             }
-            else
+            return $"{toFormat.ToString()}%";
+        }
+
+        private DateTime GetCurrentAcademicYear()
+        {
+            DateTime current = DateTime.Now;
+
+            if (DateTime.Now.Month < 9)
             {
-                temp = $"{toFormat.ToString()}%";
+                current = current.AddYears(-1);
             }
 
-            return temp;
+            return current;
         }
     }
 }
