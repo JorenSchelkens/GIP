@@ -35,5 +35,102 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
                 }
             }
         }
+
+        public List<UitstroomRij> FilterHeeftDiploma(List<UitstroomRij> temp)
+        {
+            List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                if (uitstroomRij.DiplomaBehaald)
+                {
+                    uitstroomRijen.Add(uitstroomRij);
+                }
+            }
+
+            return uitstroomRijen;
+        }
+
+        public int FilterOpASO(List<UitstroomRij> temp)
+        {
+            List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                if (uitstroomRij.SoOnderwijsvorm == "ASO" || uitstroomRij.SoOnderwijsvorm == "vASO")
+                {
+                    uitstroomRijen.Add(uitstroomRij);
+                }
+            }
+
+            return uitstroomRijen.Count;
+        }
+
+        public int FilterOpTSO(List<UitstroomRij> temp)
+        {
+            List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                if (uitstroomRij.SoOnderwijsvorm == "TSO" || uitstroomRij.SoOnderwijsvorm == "vTSO")
+                {
+                    uitstroomRijen.Add(uitstroomRij);
+                }
+            }
+
+            return uitstroomRijen.Count;
+        }
+
+        public int FilterOpBSO(List<UitstroomRij> temp)
+        {
+            List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                if (uitstroomRij.SoOnderwijsvorm == "BSO" || uitstroomRij.SoOnderwijsvorm == "vBSO")
+                {
+                    uitstroomRijen.Add(uitstroomRij);
+                }
+            }
+
+            return uitstroomRijen.Count;
+        }
+
+        public int FilterOpKSO(List<UitstroomRij> temp)
+        {
+            List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                if (uitstroomRij.SoOnderwijsvorm == "KSO" || uitstroomRij.SoOnderwijsvorm == "vKSO")
+                {
+                    uitstroomRijen.Add(uitstroomRij);
+                }
+            }
+
+            return uitstroomRijen.Count;
+        }
+
+        public int FilterOpAndereSO(List<UitstroomRij> temp)
+        {
+            List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                if (uitstroomRij.SoOnderwijsvorm != "ASO" &&
+                    uitstroomRij.SoOnderwijsvorm != "vASO" &&
+                    uitstroomRij.SoOnderwijsvorm != "TSO" &&
+                    uitstroomRij.SoOnderwijsvorm != "vTSO" &&
+                    uitstroomRij.SoOnderwijsvorm != "BSO" &&
+                    uitstroomRij.SoOnderwijsvorm != "vBSO" &&
+                    uitstroomRij.SoOnderwijsvorm != "KSO" &&
+                    uitstroomRij.SoOnderwijsvorm != "vKSO")
+                {
+                    uitstroomRijen.Add(uitstroomRij);
+                }
+            }
+
+            return uitstroomRijen.Count;
+        }
     }
 }

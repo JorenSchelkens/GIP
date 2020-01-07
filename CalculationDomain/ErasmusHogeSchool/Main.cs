@@ -26,6 +26,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             // d:\GitHub\GIP\Documentation\
             // C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\Documentation\
+            // C:\Users\Joren\Documents\GitHub\GIP\Documentation\
 
             this.InstroomBlad = new InstroomBlad(@"d:\GitHub\GIP\Documentation\Kopie van Instroom dd.08.10.2019 - 19-20.xlsx", this.Filter);
             this.DoorstroomBlad = new DoorstroomBlad(@"d:\GitHub\GIP\Documentation\Kopie van Doorstroom dd.08.10.2019 -18-19.xlsx", this.Filter);
@@ -117,6 +118,30 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         }
 
+        public void GenerateUitstroomData1()
+        {
+            List<UitstroomRij> uitstroomDiplomaTemp = this.UitstroomBlad.FilterHeeftDiploma(this.UitstroomBlad.UitstroomRijen);
+
+            double aandelASO = ((double)this.UitstroomBlad.FilterOpASO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
+            double aandelTSO = ((double)this.UitstroomBlad.FilterOpTSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
+            double aandelBSO = ((double)this.UitstroomBlad.FilterOpBSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
+            double aandelKSO = ((double)this.UitstroomBlad.FilterOpKSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
+            double aandelAndereSO = ((double)this.UitstroomBlad.FilterOpAndereSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
+
+            this.PowerPoint.ChangeUitstroomSlide1(
+                this.UitstroomBlad.FilterOpASO(uitstroomDiplomaTemp),
+                this.UitstroomBlad.FilterOpTSO(uitstroomDiplomaTemp),
+                this.UitstroomBlad.FilterOpBSO(uitstroomDiplomaTemp),
+                this.UitstroomBlad.FilterOpKSO(uitstroomDiplomaTemp),
+                this.UitstroomBlad.FilterOpAndereSO(uitstroomDiplomaTemp),
+                uitstroomDiplomaTemp.Count,
+                (int)Math.Round(aandelASO),
+                (int)Math.Round(aandelTSO),
+                (int)Math.Round(aandelBSO),
+                (int)Math.Round(aandelKSO),
+                (int)Math.Round(aandelAndereSO));
+        }
+
         public void GenerateAll()
         {
             Load();
@@ -126,6 +151,8 @@ namespace CalculationDomain.ErasmusHogeSchool
             GenerateInstroomData3();
 
             //GenerateDoorstroomData1();
+
+            GenerateUitstroomData1();
         }
 
         public void SavePowerPoint()

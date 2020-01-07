@@ -10,6 +10,7 @@ namespace CalculationDomain.ErasmusHogeSchool
         //https://help.syncfusion.com/file-formats/presentation/working-with-tables#modifying-the-table
 
         // D:\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
+        // C:\Users\Joren\Documents\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
         // C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
 
         public IPresentation PowerPoint { get; set; } = Presentation.Open(@"D:\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx");
@@ -24,7 +25,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void TestMethod()
         {
-            ChangeDoorstroomSlide1();
+            ChangeUitstroomSlide1(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
         public void ChangeFirstSlide()
@@ -226,7 +227,7 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nextYear = nextYearTemp.Year.ToString();
             }
 
-
+            
 
             //TABEL 2 --> rechts boven
             table = slide.Tables[1];
@@ -245,6 +246,69 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nextYearTemp = nextYearTemp.AddYears(-1);
                 nextYear = nextYearTemp.Year.ToString();
             }
+        }
+
+        public void ChangeUitstroomSlide1(
+            int aso,
+            int tso,
+            int bso,
+            int kso,
+            int buiteland,
+            int aantal,
+            int asoP,
+            int tsoP,
+            int bsoP,
+            int ksoP,
+            int buitelandP)
+        {
+            ISlide slide = this.PowerPoint.Slides[16];
+            ITable table = slide.Tables[0];
+
+            DateTime currentYearTemp = GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringNonPercent(aso);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringNonPercent(tso);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringNonPercent(bso);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringNonPercent(kso);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringNonPercent(buiteland);
+            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = FormatStringNonPercent(aantal);
+
+            //TABEL 2 --> Onderaan
+            table = slide.Tables[1];
+
+            currentYearTemp = GetCurrentAcademicYear();
+            currentYear = currentYearTemp.Year.ToString();
+            nextYearTemp = currentYearTemp.AddYears(1);
+            nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+
+            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = FormatStringPercent(asoP);
+            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = FormatStringPercent(tsoP);
+            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = FormatStringPercent(bsoP);
+            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = FormatStringPercent(ksoP);
+            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = FormatStringPercent(buitelandP);
         }
 
         public void Save()
