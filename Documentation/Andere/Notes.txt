@@ -12,3 +12,13 @@ studierendement (totaal alle studenten) => opgenome credits / studie punten te v
 kolom in excel!
 
 -----------------------------
+
+Generatie + Voltijds
+niet --> generatie / voltijds
+
+Doorstroom procent op basis van slide 1 (voltijds)
+onderste tabel op basis van totaal aantal filter doorstroom
+
+Verpleegkunde 240sp niet 3 maar 4 jaar
+
+lege slide --> bachelors
