@@ -12,6 +12,7 @@ namespace CalculationDomain.ErasmusHogeSchool
         public DoorstroomBlad DoorstroomBlad { get; set; }
         public UitstroomBlad UitstroomBlad { get; set; }
         public PowerPointClass PowerPoint { get; set; }
+        private FilePathHandler FilePathHandler { get; set; } = new FilePathHandler();
         private string Filter { get; set; }
 
         public Main(string opleiding)
@@ -20,17 +21,11 @@ namespace CalculationDomain.ErasmusHogeSchool
             this.PowerPoint = new PowerPointClass(opleiding);
         }
 
-        public void Load()
+        public void Load(int index)
         {
-            //Haal bestanden
-
-            // d:\GitHub\GIP\Documentation\
-            // C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\Documentation\
-            // C:\Users\Joren\Documents\GitHub\GIP\Documentation\
-
-            this.InstroomBlad = new InstroomBlad(@"d:\GitHub\GIP\Documentation\Kopie van Instroom dd.08.10.2019 - 19-20.xlsx", this.Filter);
-            this.DoorstroomBlad = new DoorstroomBlad(@"d:\GitHub\GIP\Documentation\Kopie van Doorstroom dd.08.10.2019 -18-19.xlsx", this.Filter);
-            this.UitstroomBlad = new UitstroomBlad(@"d:\GitHub\GIP\Documentation\Kopie van Uitstroom dd.08.10.2019 - 18-19.xlsx", this.Filter);
+            this.InstroomBlad = new InstroomBlad(this.FilePathHandler.InstroomPaths[index], this.Filter);
+            this.DoorstroomBlad = new DoorstroomBlad(this.FilePathHandler.DoorstroomPaths[index], this.Filter);
+            this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomPaths[index], this.Filter);
         }
 
         public void GenerateInstroomData1()
@@ -144,7 +139,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void GenerateAll()
         {
-            Load();
+            Load(0);
 
             GenerateInstroomData1();
             GenerateInstroomData2();
