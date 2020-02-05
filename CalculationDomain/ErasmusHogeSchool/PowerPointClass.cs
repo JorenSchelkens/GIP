@@ -9,15 +9,13 @@ namespace CalculationDomain.ErasmusHogeSchool
         //https://www.asknumbers.com/centimeters-to-points.aspx
         //https://help.syncfusion.com/file-formats/presentation/working-with-tables#modifying-the-table
 
-        // D:\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
-        // C:\Users\Joren\Documents\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
-        // C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx
-
-        public IPresentation PowerPoint { get; set; } = Presentation.Open(@"D:\GitHub\GIP\CalculationDomain\ErasmusHogeSchool\EmptyPowerPoint.pptx");
+        public IPresentation PowerPoint { get; set; }
         private string Opleiding { get; set; }
+        private FilePathHandler FilePathHandler = new FilePathHandler();
 
         public PowerPointClass(string opleiding)
         {
+            this.PowerPoint = Presentation.Open(this.FilePathHandler.PowerPointPath);
             this.Opleiding = opleiding;
 
             this.ChangeFirstSlide();
