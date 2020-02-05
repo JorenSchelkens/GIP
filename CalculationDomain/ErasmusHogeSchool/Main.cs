@@ -21,14 +21,14 @@ namespace CalculationDomain.ErasmusHogeSchool
             this.PowerPoint = new PowerPointClass(opleiding);
         }
 
-        public void Load(int index)
+        private void Load(int index)
         {
             this.InstroomBlad = new InstroomBlad(this.FilePathHandler.InstroomPaths[index], this.Filter);
             this.DoorstroomBlad = new DoorstroomBlad(this.FilePathHandler.DoorstroomPaths[index], this.Filter);
             this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomPaths[index], this.Filter);
         }
 
-        public void GenerateInstroomData1()
+        private void GenerateInstroomData1(int index)
         {
             List<InstroomRij> instroomNieuweStudenten = this.InstroomBlad.FilterOpNieuweStudent();
             List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
@@ -51,10 +51,11 @@ namespace CalculationDomain.ErasmusHogeSchool
                 generatiestudent, 
                 nietGeneratiestudent,
                 (int)Math.Round(aandelInTotaal),
-                (int)Math.Round(aandeelInVoltijds));
+                (int)Math.Round(aandeelInVoltijds),
+                index);
         }
 
-        public void GenerateInstroomData2()
+        private void GenerateInstroomData2(int index)
         {
             List<InstroomRij> instroomNieuweStudenten = this.InstroomBlad.FilterOpNieuweStudent();
             List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
@@ -65,7 +66,8 @@ namespace CalculationDomain.ErasmusHogeSchool
                 this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp),
                 this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp),
                 this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp),
-                instroomVoltijdsTemp.Count);
+                instroomVoltijdsTemp.Count,
+                index);
 
             double aandelASO = ((double)this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
             double aandelTSO = ((double)this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
@@ -78,10 +80,11 @@ namespace CalculationDomain.ErasmusHogeSchool
                 (int)Math.Round(aandelTSO),
                 (int)Math.Round(aandelBSO),
                 (int)Math.Round(aandelKSO),
-                (int)Math.Round(aandelAndereSO));
+                (int)Math.Round(aandelAndereSO),
+                index);
         }
 
-        public void GenerateInstroomData3()
+        private void GenerateInstroomData3(int index)
         {
             List<InstroomRij> instroomGeneratieTemp = this.InstroomBlad.FilterOpGeneratieStudent(this.InstroomBlad.InstroomRijen);
             List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomGeneratieTemp);
@@ -92,7 +95,8 @@ namespace CalculationDomain.ErasmusHogeSchool
                 this.InstroomBlad.FilterOpBSO(instroomVoltijdsTemp),
                 this.InstroomBlad.FilterOpKSO(instroomVoltijdsTemp),
                 this.InstroomBlad.FilterOpAndereSO(instroomVoltijdsTemp),
-                instroomVoltijdsTemp.Count);
+                instroomVoltijdsTemp.Count,
+                index);
 
             double aandelASO = ((double)this.InstroomBlad.FilterOpASO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
             double aandelTSO = ((double)this.InstroomBlad.FilterOpTSO(instroomVoltijdsTemp) / instroomVoltijdsTemp.Count) * 100;
@@ -105,15 +109,16 @@ namespace CalculationDomain.ErasmusHogeSchool
                 (int)Math.Round(aandelTSO),
                 (int)Math.Round(aandelBSO),
                 (int)Math.Round(aandelKSO),
-                (int)Math.Round(aandelAndereSO));
+                (int)Math.Round(aandelAndereSO),
+                index);
         }
 
-        public void GenerateDoorstroomData1()
+        private void GenerateDoorstroomData1(int index)
         {
 
         }
 
-        public void GenerateUitstroomData1()
+        private void GenerateUitstroomData1(int index)
         {
             List<UitstroomRij> uitstroomDiplomaTemp = this.UitstroomBlad.FilterHeeftDiploma(this.UitstroomBlad.UitstroomRijen);
 
@@ -134,20 +139,24 @@ namespace CalculationDomain.ErasmusHogeSchool
                 (int)Math.Round(aandelTSO),
                 (int)Math.Round(aandelBSO),
                 (int)Math.Round(aandelKSO),
-                (int)Math.Round(aandelAndereSO));
+                (int)Math.Round(aandelAndereSO),
+                index);
         }
 
         public void GenerateAll()
         {
-            Load(0);
+            for (int i = 0; i < FilePathHandler.MaxAantalPaths; i++)
+            {
+                Load(i);
 
-            GenerateInstroomData1();
-            GenerateInstroomData2();
-            GenerateInstroomData3();
+                GenerateInstroomData1(i + 1);
+                GenerateInstroomData2(i + 1);
+                GenerateInstroomData3(i + 1);
 
-            //GenerateDoorstroomData1();
+                GenerateDoorstroomData1(i + 1);
 
-            GenerateUitstroomData1();
+                GenerateUitstroomData1(i + 1);
+            }
         }
 
         public void SavePowerPoint()

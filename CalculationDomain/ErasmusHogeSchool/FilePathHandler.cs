@@ -13,7 +13,7 @@ namespace CalculationDomain.ErasmusHogeSchool
         public List<string> InstroomPaths { get; set; } = new List<string>();
         public List<string> UitstroomPaths { get; set; } = new List<string>();
         public string PowerPointPath { get; set; }
-        private int MaxAantalPaths = 4;
+        public int MaxAantalPaths { get; set; } = 3;
 
         public FilePathHandler()
         {
@@ -31,12 +31,26 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             for (int i = 0; i < this.MaxAantalPaths; i++)
             {
-                this.DoorstroomPaths.Add(this.DefaultAbsPath +
-                    @"CalculationDomain\ErasmusHogeSchool\Excels\Doorstroom " + 
-                    $"{EHBFunctions.FormatYearDefaultString(currentYear, nextYear)}.xlsx");
-
                 this.InstroomPaths.Add(this.DefaultAbsPath +
                     @"CalculationDomain\ErasmusHogeSchool\Excels\Instroom " +
+                    $"{EHBFunctions.FormatYearDefaultString(currentYear, nextYear)}.xlsx");
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+
+            currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
+            currentYearTemp = currentYearTemp.AddYears(-1);
+            currentYear = currentYearTemp.Year.ToString();
+            nextYearTemp = currentYearTemp.AddYears(1);
+            nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = 0; i < this.MaxAantalPaths; i++)
+            {
+                this.DoorstroomPaths.Add(this.DefaultAbsPath +
+                    @"CalculationDomain\ErasmusHogeSchool\Excels\Doorstroom " +
                     $"{EHBFunctions.FormatYearDefaultString(currentYear, nextYear)}.xlsx");
 
                 this.UitstroomPaths.Add(this.DefaultAbsPath +

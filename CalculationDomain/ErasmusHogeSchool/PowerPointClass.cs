@@ -11,7 +11,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public IPresentation PowerPoint { get; set; }
         private string Opleiding { get; set; }
-        private FilePathHandler FilePathHandler = new FilePathHandler();
+        private FilePathHandler FilePathHandler { get; set; } = new FilePathHandler();
 
         public PowerPointClass(string opleiding)
         {
@@ -23,7 +23,25 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void TestMethod()
         {
-            ChangeUitstroomSlide1(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            ChangeUitstroomSlide1(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+        }
+
+        private void ChangeTableHeading(ITable table)
+        {
+            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
         }
 
         public void ChangeFirstSlide()
@@ -43,34 +61,25 @@ namespace CalculationDomain.ErasmusHogeSchool
             int generatieStudent,
             int nietGeneratieStudent,
             int aandelInTotaal,
-            int aandeelInVoltijds)
+            int aandeelInVoltijds,
+            int index)
         {
 
             ISlide slide = this.PowerPoint.Slides[5];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if(index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(voltijds);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(deeltijds);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(totaal);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(generatieStudent);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(nietGeneratieStudent);
-            table.Columns[table.Columns.Count - 1].Cells[6].TextBody.Text = EHBFunctions.FormatStringPercent(aandelInTotaal);
-            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringPercent(aandeelInVoltijds);
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(voltijds);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(deeltijds);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(totaal);
+            table.Columns[table.Columns.Count - index].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(generatieStudent);
+            table.Columns[table.Columns.Count - index].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(nietGeneratieStudent);
+            table.Columns[table.Columns.Count - index].Cells[6].TextBody.Text = EHBFunctions.FormatStringPercent(aandelInTotaal);
+            table.Columns[table.Columns.Count - index].Cells[7].TextBody.Text = EHBFunctions.FormatStringPercent(aandeelInVoltijds);
         }
 
         public void ChangeInstroomSlide2(
@@ -79,32 +88,23 @@ namespace CalculationDomain.ErasmusHogeSchool
             int bso,
             int kso,
             int buiteland,
-            int totaal)
+            int totaal,
+            int index)
         {
             ISlide slide = this.PowerPoint.Slides[6];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
-            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(totaal);
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
+            table.Columns[table.Columns.Count - index].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
+            table.Columns[table.Columns.Count - index].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
+            table.Columns[table.Columns.Count - index].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(totaal);
         }
 
         public void ChangeInstroomSlide3(
@@ -112,31 +112,22 @@ namespace CalculationDomain.ErasmusHogeSchool
             int tso,
             int bso,
             int kso,
-            int buiteland)
+            int buiteland,
+            int index)
         {
             ISlide slide = this.PowerPoint.Slides[7];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland);
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tso);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bso);
+            table.Columns[table.Columns.Count - index].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(kso);
+            table.Columns[table.Columns.Count - index].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland);
         }
 
         public void ChangeInstroomSlide4(
@@ -145,32 +136,23 @@ namespace CalculationDomain.ErasmusHogeSchool
             int bso,
             int kso,
             int buiteland,
-            int aantal)
+            int aantal,
+            int index)
         {
             ISlide slide = this.PowerPoint.Slides[8];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
-            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(aantal);
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
+            table.Columns[table.Columns.Count - index].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
+            table.Columns[table.Columns.Count - index].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
+            table.Columns[table.Columns.Count - index].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(aantal);
         }
 
         public void ChangeInstroomSlide5(
@@ -178,71 +160,42 @@ namespace CalculationDomain.ErasmusHogeSchool
             int tso,
             int bso,
             int kso,
-            int buiteland)
+            int buiteland,
+            int index)
         {
             ISlide slide = this.PowerPoint.Slides[9];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland);
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tso);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bso);
+            table.Columns[table.Columns.Count - index].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(kso);
+            table.Columns[table.Columns.Count - index].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland);
         }
 
-        public void ChangeDoorstroomSlide1()
+        public void ChangeDoorstroomSlide1(int index)
         {
             ISlide slide = this.PowerPoint.Slides[12];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            
+
 
             //TABEL 2 --> rechts boven
             table = slide.Tables[1];
 
-            currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            currentYear = currentYearTemp.Year.ToString();
-            nextYearTemp = currentYearTemp.AddYears(1);
-            nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
         }
 
@@ -257,61 +210,42 @@ namespace CalculationDomain.ErasmusHogeSchool
             int tsoP,
             int bsoP,
             int ksoP,
-            int buitelandP)
+            int buitelandP,
+            int index)
         {
             ISlide slide = this.PowerPoint.Slides[16];
             ITable table = slide.Tables[0];
 
-            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            string currentYear = currentYearTemp.Year.ToString();
-            DateTime nextYearTemp = currentYearTemp.AddYears(1);
-            string nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
-            table.Columns[table.Columns.Count - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(aantal);
+            table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
+            table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
+            table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
+            table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
+            table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
+            table.Columns[table.Columns.Count - index - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(aantal);
 
             //TABEL 2 --> Onderaan
             table = slide.Tables[1];
 
-            currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
-            currentYear = currentYearTemp.Year.ToString();
-            nextYearTemp = currentYearTemp.AddYears(1);
-            nextYear = nextYearTemp.Year.ToString();
-
-            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            if (index == 1)
             {
-                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
-
-                currentYearTemp = currentYearTemp.AddYears(-1);
-                currentYear = currentYearTemp.Year.ToString();
-                nextYearTemp = nextYearTemp.AddYears(-1);
-                nextYear = nextYearTemp.Year.ToString();
+                ChangeTableHeading(table);
             }
 
-            table.Columns[table.Columns.Count - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(asoP);
-            table.Columns[table.Columns.Count - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tsoP);
-            table.Columns[table.Columns.Count - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bsoP);
-            table.Columns[table.Columns.Count - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(ksoP);
-            table.Columns[table.Columns.Count - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buitelandP);
+            table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(asoP);
+            table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tsoP);
+            table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bsoP);
+            table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(ksoP);
+            table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buitelandP);
         }
 
         public void Save()
         {
-            PowerPoint.Save($"{this.Opleiding}.pptx");
+            PowerPoint.Save($"Cijferanalyse {this.Opleiding}.pptx");
             PowerPoint.Close();
         }
     }

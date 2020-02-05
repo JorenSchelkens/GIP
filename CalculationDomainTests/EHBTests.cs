@@ -58,17 +58,6 @@ namespace CalculationDomainTests
         #region Main
 
         [Fact]
-        public void MainLoadTest()
-        {
-            Main main = new Main(Opleiding);
-            main.Load(0);
-
-            Assert.NotNull(main.InstroomBlad);
-            Assert.NotNull(main.DoorstroomBlad);
-            Assert.NotNull(main.UitstroomBlad);
-        }
-
-        [Fact]
         public void MainPowerPointTest()
         {
             Main main = new Main(Opleiding);
@@ -111,6 +100,17 @@ namespace CalculationDomainTests
             powerPoint.Save();
 
             Assert.NotNull(powerPoint);
+        }
+
+        #endregion
+
+        #region Others
+
+        [Fact]
+        public void FilePathHandlerTest()
+        {
+            FilePathHandler file = new FilePathHandler();
+            Assert.NotNull(file.InstroomPaths);
         }
 
         #endregion

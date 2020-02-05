@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Presentation.Net.Core" Version="17.4.0.39" />
+    <PackageReference Include="Syncfusion.Presentation.Net.Core" Version="17.4.0.47" />
   </ItemGroup>
 
   <ItemGroup>

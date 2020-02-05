@@ -9,6 +9,10 @@
     .knop {
         min-width: 150px;
     }
+
+    .selectWidth {
+        width: 100% !important;
+    }
 </style>
 
 @if (showIntro)
@@ -111,7 +115,7 @@
 
             <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
 
-                <MatSelect Style="width: 100%" Label="Kies een richting" Enhanced="true" @bind-Value="@richtingen[0]">
+                <MatSelect Class="selectWidth" Label="Kies een richting" Enhanced="true" @bind-Value="@richtingen[0]">
                     <MatOptionString Value="Bachelor in de Biomedische Laboratoriumtechnologie">Bachelor in de Biomedische Laboratoriumtechnologie</MatOptionString>
                     <MatOptionString Value="Bachelor in de Landschaps- en Tuinarchitectuur">Bachelor in de Landschaps- en Tuinarchitectuur</MatOptionString>
                     <MatOptionString Value="Bachelor in de Landschaps- en Tuinarchitectuur - Werktraject">Bachelor in de Landschaps- en Tuinarchitectuur - Werktraject</MatOptionString>
