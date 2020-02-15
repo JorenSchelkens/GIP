@@ -41,8 +41,11 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             int nietGeneratiestudent = instroomNieuweStudenten.Count - generatiestudent;
 
+            List<InstroomRij> instroomVoltijdsEnGeneratieTemp = this.InstroomBlad.FilterOpVoltijds(instroomGeneratieStudentTemp);
+            int instroomVoltijdsEnGeneratie = instroomVoltijdsEnGeneratieTemp.Count;
+
             double aandelInTotaal = ((double) generatiestudent / totaal) * 100;
-            double aandeelInVoltijds = ((double) generatiestudent / instroomVoltijdsTemp.Count) * 100;
+            double aandeelInVoltijds = ((double)instroomVoltijdsEnGeneratie / instroomVoltijdsTemp.Count) * 100;
 
             this.PowerPoint.ChangeInstroomSlide1(
                 instroomVoltijdsTemp.Count, 

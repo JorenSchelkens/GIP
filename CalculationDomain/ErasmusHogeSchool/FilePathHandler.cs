@@ -14,7 +14,7 @@ namespace CalculationDomain.ErasmusHogeSchool
         public List<string> InstroomPaths { get; set; } = new List<string>();
         public List<string> UitstroomPaths { get; set; } = new List<string>();
         public string PowerPointPath { get; set; }
-        public int MaxAantalPaths { get; set; } = 3;
+        public int MaxAantalPaths { get; set; } = 5;
 
         public FilePathHandler()
         {
