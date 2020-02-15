@@ -1,4 +1,4 @@
-Afpsraak 9/10/2019
+Afspraak 9/10/2019
 generatie => rechtstreek uit secundair of niet
 
 tabel in powerpoint
@@ -13,8 +13,7 @@ kolom in excel!
 
 -----------------------------
 
-Generatie + Voltijds
-niet --> generatie / voltijds
+Generatie + Voltijds => niet --> generatie / voltijds
 
 Doorstroom procent op basis van slide 1 (voltijds)
 onderste tabel op basis van totaal aantal filter doorstroom

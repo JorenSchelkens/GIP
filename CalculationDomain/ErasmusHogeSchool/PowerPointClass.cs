@@ -44,6 +44,24 @@ namespace CalculationDomain.ErasmusHogeSchool
             }
         }
 
+        private void ChangeTableHeadingSpecial(ITable table)
+        {
+            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearStringSpecial(currentYear, nextYear);
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+        }
+
         public void ChangeFirstSlide()
         {
             ISlide slide = this.PowerPoint.Slides[0];
@@ -68,7 +86,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             ISlide slide = this.PowerPoint.Slides[5];
             ITable table = slide.Tables[0];
 
-            if(index == 1)
+            if (index == 1)
             {
                 ChangeTableHeading(table);
             }
@@ -178,24 +196,42 @@ namespace CalculationDomain.ErasmusHogeSchool
             table.Columns[table.Columns.Count - index].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland);
         }
 
-        public void ChangeDoorstroomSlide1(int index)
+        public void ChangeDoorstroomSlide1(
+            int zestigStp1,
+            int tussenZestigStpEnVijfenveertig1,
+            int onderVijfenveertig1,
+            int dropOut,
+            int zestigStp2,
+            int tussenZestigStpEnVijfenveertig2,
+            int onderVijfenveertig2,
+            int index)
         {
             ISlide slide = this.PowerPoint.Slides[12];
             ITable table = slide.Tables[0];
 
-            if (index == 1)
+            if (table.Columns.Count - index - 1 != 0)
             {
-                ChangeTableHeading(table);
-            }
+                if (index == 1)
+                {
+                    ChangeTableHeadingSpecial(table);
+                }
 
+                table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(zestigStp2);
+                table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tussenZestigStpEnVijfenveertig2);
+                table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(onderVijfenveertig2);
 
+                //TABEL 2 --> rechts boven
+                table = slide.Tables[1];
 
-            //TABEL 2 --> rechts boven
-            table = slide.Tables[1];
+                if (index == 1)
+                {
+                    ChangeTableHeading(table);
+                }
 
-            if (index == 1)
-            {
-                ChangeTableHeading(table);
+                table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(zestigStp1);
+                table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tussenZestigStpEnVijfenveertig1);
+                table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(onderVijfenveertig1);
+                table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(dropOut);
             }
         }
 
@@ -216,31 +252,34 @@ namespace CalculationDomain.ErasmusHogeSchool
             ISlide slide = this.PowerPoint.Slides[16];
             ITable table = slide.Tables[0];
 
-            if (index == 1)
+            if (table.Columns.Count - index - 1 != 0)
             {
-                ChangeTableHeading(table);
+                if (index == 1)
+                {
+                    ChangeTableHeading(table);
+                }
+
+                table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
+                table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
+                table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
+                table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
+                table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
+                table.Columns[table.Columns.Count - index - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(aantal);
+
+                //TABEL 2 --> Onderaan
+                table = slide.Tables[1];
+
+                if (index == 1)
+                {
+                    ChangeTableHeading(table);
+                }
+
+                table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(asoP);
+                table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tsoP);
+                table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bsoP);
+                table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(ksoP);
+                table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buitelandP);
             }
-
-            table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
-            table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
-            table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
-            table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
-            table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
-            table.Columns[table.Columns.Count - index - 1].Cells[7].TextBody.Text = EHBFunctions.FormatStringNonPercent(aantal);
-
-            //TABEL 2 --> Onderaan
-            table = slide.Tables[1];
-
-            if (index == 1)
-            {
-                ChangeTableHeading(table);
-            }
-
-            table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(asoP);
-            table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tsoP);
-            table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bsoP);
-            table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(ksoP);
-            table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringPercent(buitelandP);
         }
 
         public void Save()

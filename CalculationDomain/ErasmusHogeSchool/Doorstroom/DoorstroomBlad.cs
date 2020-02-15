@@ -49,5 +49,95 @@ namespace CalculationDomain.ErasmusHogeSchool.Doorstroom
                 }
             }
         }
+
+        public List<DoorstroomRij> FilterOpVoltijds(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.Trajectschijfverdeling >= 54)
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpOLOD(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.VolgtOlodInSchijf1)
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpNieuweStudent(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.NieuweStudentInInstelling)
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOp60Stp(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.StudiepuntenCredits == 60)
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpTussen60En45Stp(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.StudiepuntenCredits >= 45 && doorstroomRij.StudiepuntenCredits < 60)
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpMinderDan45Stp(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.StudiepuntenCredits < 45)
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
     }
 }

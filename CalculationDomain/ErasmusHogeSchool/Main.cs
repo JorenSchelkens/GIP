@@ -44,14 +44,14 @@ namespace CalculationDomain.ErasmusHogeSchool
             List<InstroomRij> instroomVoltijdsEnGeneratieTemp = this.InstroomBlad.FilterOpVoltijds(instroomGeneratieStudentTemp);
             int instroomVoltijdsEnGeneratie = instroomVoltijdsEnGeneratieTemp.Count;
 
-            double aandelInTotaal = ((double) generatiestudent / totaal) * 100;
+            double aandelInTotaal = ((double)generatiestudent / totaal) * 100;
             double aandeelInVoltijds = ((double)instroomVoltijdsEnGeneratie / instroomVoltijdsTemp.Count) * 100;
 
             this.PowerPoint.ChangeInstroomSlide1(
-                instroomVoltijdsTemp.Count, 
-                deeltijds, 
-                totaal, 
-                generatiestudent, 
+                instroomVoltijdsTemp.Count,
+                deeltijds,
+                totaal,
+                generatiestudent,
                 nietGeneratiestudent,
                 (int)Math.Round(aandelInTotaal),
                 (int)Math.Round(aandeelInVoltijds),
@@ -118,7 +118,34 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         private void GenerateDoorstroomData1(int index)
         {
+            List<DoorstroomRij> doorstroomOLODTemp = this.DoorstroomBlad.FilterOpOLOD(this.DoorstroomBlad.DoorstroomRijen);
+            List<DoorstroomRij> doorstroomOLODEnNieweStudentTemp = this.DoorstroomBlad.FilterOpNieuweStudent(doorstroomOLODTemp);
+            List<DoorstroomRij> doorstroomOLODEnNieweStudentEnVoltijdsTemp = this.DoorstroomBlad.FilterOpVoltijds(doorstroomOLODEnNieweStudentTemp);
 
+            List<DoorstroomRij> doorstroom60 = this.DoorstroomBlad.FilterOp60Stp(doorstroomOLODEnNieweStudentEnVoltijdsTemp);
+            List<DoorstroomRij> doorstroomMeer45 = this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomOLODEnNieweStudentEnVoltijdsTemp);
+            List<DoorstroomRij> doorstroomMinder45 = this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomOLODEnNieweStudentEnVoltijdsTemp);
+
+            double zestigStp1 = 0;
+            double tussenZestigStpEnVijfenveertig1 = 0;
+            double onderVijfenveertig1 = 0;
+            double dropOut = 0;
+
+
+
+            double zestigStp2 = ((double)doorstroom60.Count / doorstroomOLODEnNieweStudentEnVoltijdsTemp.Count) * 100;
+            double tussenZestigStpEnVijfenveertig2 = ((double)doorstroomMeer45.Count / doorstroomOLODEnNieweStudentEnVoltijdsTemp.Count) * 100;
+            double onderVijfenveertig2 = ((double)doorstroomMinder45.Count / doorstroomOLODEnNieweStudentEnVoltijdsTemp.Count) * 100;
+
+            this.PowerPoint.ChangeDoorstroomSlide1(
+                (int)Math.Round(zestigStp1),
+                (int)Math.Round(tussenZestigStpEnVijfenveertig1),
+                (int)Math.Round(onderVijfenveertig1),
+                (int)Math.Round(dropOut),
+                (int)Math.Round(zestigStp2),
+                (int)Math.Round(tussenZestigStpEnVijfenveertig2),
+                (int)Math.Round(onderVijfenveertig2),
+                index);
         }
 
         private void GenerateUitstroomData1(int index)

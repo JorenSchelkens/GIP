@@ -27,6 +27,11 @@ namespace CalculationDomain.ErasmusHogeSchool
             return $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}";
         }
 
+        public static string FormatYearStringSpecial(string currentYear, string nextYear)
+        {
+            return $"´{currentYear.Substring(2)}-´{nextYear.Substring(2)}*";
+        }
+
         public static string FormatYearDefaultString(string currentYear, string nextYear)
         {
             return $"{currentYear.Substring(2)}-{nextYear.Substring(2)}";
