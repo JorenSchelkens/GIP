@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace CalculationDomain.ErasmusHogeSchool
 {
@@ -8,8 +10,9 @@ namespace CalculationDomain.ErasmusHogeSchool
         // @"d:\GitHub\GIP\";
         // @"C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\";
         // @"C:\Users\JorenSchelkens\Documents\GitHub\GIP\";
+        // @"C:\Users\adminJSYB\Documents\GitHub\GIP\";
 
-        private string DefaultAbsPath = @"d:\GitHub\GIP\";
+        private string DefaultAbsPath = @"C:\Users\adminJSYB\Documents\GitHub\GIP\";
         public List<string> DoorstroomPaths { get; set; } = new List<string>();
         public List<string> InstroomPaths { get; set; } = new List<string>();
         public List<string> UitstroomPaths { get; set; } = new List<string>();
@@ -63,6 +66,34 @@ namespace CalculationDomain.ErasmusHogeSchool
                 nextYearTemp = nextYearTemp.AddYears(-1);
                 nextYear = nextYearTemp.Year.ToString();
             }
+        }
+
+        public bool[] HasLatestExcels()
+        {
+            bool[] bools = new bool[3];
+            string[] fileNameArray = Directory.GetFiles(this.DefaultAbsPath + @"\CalculationDomain\ErasmusHogeSchool\Excels\", "*.xlsx");
+
+            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            //Instroom
+            bools[0] = fileNameArray.Any(v => v.Contains($"Instroom {EHBFunctions.FormatYearDefaultString(currentYear, nextYear)}"));
+
+            currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
+            currentYearTemp = currentYearTemp.AddYears(-1);
+            currentYear = currentYearTemp.Year.ToString();
+            nextYearTemp = currentYearTemp.AddYears(1);
+            nextYear = nextYearTemp.Year.ToString();
+
+            //Doorstroom
+            bools[1] = fileNameArray.Any(v => v.Contains($"Doorstroom {EHBFunctions.FormatYearDefaultString(currentYear, nextYear)}"));
+
+            //Uitstroom
+            bools[2] = fileNameArray.Any(v => v.Contains($"Uitstroom {EHBFunctions.FormatYearDefaultString(currentYear, nextYear)}"));
+
+            return bools;
         }
     }
 }
