@@ -12,7 +12,7 @@ namespace CalculationDomain.ErasmusHogeSchool
         // @"C:\Users\JorenSchelkens\Documents\GitHub\GIP\";
         // @"C:\Users\adminJSYB\Documents\GitHub\GIP\";
 
-        private string DefaultAbsPath = @"C:\Users\adminJSYB\Documents\GitHub\GIP\";
+        private string DefaultAbsPath = @"d:\GitHub\GIP\";
         public List<string> DoorstroomPaths { get; set; } = new List<string>();
         public List<string> InstroomPaths { get; set; } = new List<string>();
         public List<string> UitstroomPaths { get; set; } = new List<string>();

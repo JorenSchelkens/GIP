@@ -11,6 +11,8 @@ namespace DefaultDomain.ExcelReading
             FileInfo existingFile = new FileInfo(FilePath);
             List<Row> rows = new List<Row>();
 
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
             using (ExcelPackage package = new ExcelPackage(existingFile))
             {
                 //get the first worksheet in the workbook
