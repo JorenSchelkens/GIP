@@ -8,11 +8,11 @@ namespace CalculationDomain.ErasmusHogeSchool
     public class FilePathHandler
     {
         // @"d:\GitHub\GIP\";
-        // @"C:\Users\joren.schelkens.BAZANDPOORT.000\Documents\GitHub\GIP\";
+        // @"C:\Users\joren.schelkens.BAZANDPOORT\Documents\GitHub\GIP\";
         // @"C:\Users\JorenSchelkens\Documents\GitHub\GIP\";
         // @"C:\Users\adminJSYB\Documents\GitHub\GIP\";
 
-        private string DefaultAbsPath = @"d:\GitHub\GIP\";
+        private string DefaultAbsPath = @"C:\Users\joren.schelkens.BAZANDPOORT\Documents\GitHub\GIP\";
         public List<string> DoorstroomPaths { get; set; } = new List<string>();
         public List<string> InstroomPaths { get; set; } = new List<string>();
         public List<string> UitstroomPaths { get; set; } = new List<string>();
