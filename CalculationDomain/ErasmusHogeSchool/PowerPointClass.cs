@@ -209,6 +209,15 @@ namespace CalculationDomain.ErasmusHogeSchool
             ISlide slide = this.PowerPoint.Slides[12];
             ITable table = slide.Tables[0];
 
+            IShape item = slide.Shapes[1] as IShape;
+            item.TextBody.Paragraphs[0].Text = "Dit is een test 1";
+
+            IShape item2 = slide.Shapes[6] as IShape;
+            item2.TextBody.Paragraphs[0].Text = "Dit is een test 2";
+
+            IShape item3 = slide.Shapes[8] as IShape;
+            item3.TextBody.Paragraphs[0].Text = "Dit is een test 3";
+
             if (table.Columns.Count - index - 1 != 0)
             {
                 if (index == 1)
