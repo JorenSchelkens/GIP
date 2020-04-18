@@ -173,6 +173,11 @@ namespace CalculationDomain.ErasmusHogeSchool
                 index);
         }
 
+        private void GenerateStudieduur1(int index)
+        {
+
+        }
+
         public void GenerateAll()
         {
             for (int i = 0; i < FilePathHandler.MaxAantalPaths; i++)

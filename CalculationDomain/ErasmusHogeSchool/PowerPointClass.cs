@@ -209,15 +209,6 @@ namespace CalculationDomain.ErasmusHogeSchool
             ISlide slide = this.PowerPoint.Slides[12];
             ITable table = slide.Tables[0];
 
-            IShape item = slide.Shapes[1] as IShape;
-            item.TextBody.Paragraphs[0].Text = "Dit is een test 1";
-
-            IShape item2 = slide.Shapes[6] as IShape;
-            item2.TextBody.Paragraphs[0].Text = "Dit is een test 2";
-
-            IShape item3 = slide.Shapes[8] as IShape;
-            item3.TextBody.Paragraphs[0].Text = "Dit is een test 3";
-
             if (table.Columns.Count - index - 1 != 0)
             {
                 if (index == 1)
@@ -228,6 +219,29 @@ namespace CalculationDomain.ErasmusHogeSchool
                 table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(zestigStp2);
                 table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tussenZestigStpEnVijfenveertig2);
                 table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(onderVijfenveertig2);
+
+                IShape text;
+
+                switch (index)
+                {
+                    case 1:
+                        text = slide.Shapes[22] as IShape;
+                        break;
+                    case 2:
+                        text = slide.Shapes[6] as IShape;
+                        break;
+                    case 3:
+                        text = slide.Shapes[8] as IShape;
+                        break;
+                    case 4:
+                        text = slide.Shapes[1] as IShape;
+                        break;
+                    default:
+                        text = null;
+                        break;
+                }
+
+                text.TextBody.Paragraphs[0].Text = EHBFunctions.FormatStringPercent(zestigStp2 + tussenZestigStpEnVijfenveertig2);
 
                 //TABEL 2 --> rechts boven
                 table = slide.Tables[1];
@@ -241,6 +255,33 @@ namespace CalculationDomain.ErasmusHogeSchool
                 table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tussenZestigStpEnVijfenveertig1);
                 table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(onderVijfenveertig1);
                 table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(dropOut);
+
+                switch (index)
+                {
+                    case 1:
+                        text = slide.Shapes[20] as IShape;
+                        break;
+                    case 2:
+                        text = slide.Shapes[12] as IShape;
+                        break;
+                    case 3:
+                        text = slide.Shapes[14] as IShape;
+                        break;
+                    case 4:
+                        text = slide.Shapes[16] as IShape;
+                        break;
+                    default:
+                        text = null;
+                        break;
+                }
+
+                text.TextBody.Paragraphs[0].Text = EHBFunctions.FormatStringPercent(zestigStp1 + tussenZestigStpEnVijfenveertig1);
+
+                text = slide.Shapes[18] as IShape;
+                text.TextBody.Paragraphs[0].Text = "";
+
+                text = slide.Shapes[24] as IShape;
+                text.TextBody.Paragraphs[0].Text = "";
             }
         }
 
