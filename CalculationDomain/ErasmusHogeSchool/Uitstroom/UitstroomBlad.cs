@@ -9,8 +9,8 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
 
         public UitstroomBlad(string filePath, string opleiding)
         {
-            List<Row> rows = Setup(filePath);
-            FilterOpOpleiding(rows, opleiding);
+            List<Row> rows = this.Setup(filePath);
+            this.FilterOpOpleiding(rows, opleiding);
         }
 
         public List<Row> Setup(string filePath)

@@ -1,9 +1,9 @@
-using Xunit;
-using CalculationDomain.ErasmusHogeSchool.Instroom;
-using CalculationDomain.ErasmusHogeSchool.Doorstroom;
-using CalculationDomain.ErasmusHogeSchool.Uitstroom;
 using CalculationDomain.ErasmusHogeSchool;
+using CalculationDomain.ErasmusHogeSchool.Doorstroom;
+using CalculationDomain.ErasmusHogeSchool.Instroom;
+using CalculationDomain.ErasmusHogeSchool.Uitstroom;
 using System.Collections.Generic;
+using Xunit;
 
 namespace CalculationDomainTests
 {
@@ -17,14 +17,14 @@ namespace CalculationDomainTests
         [Fact]
         public void LeesBestandInInstroomTest()
         {
-            InstroomBlad instroomBlad = new InstroomBlad(FilePathHandler.InstroomPaths[0], Opleiding);
+            InstroomBlad instroomBlad = new InstroomBlad(this.FilePathHandler.InstroomPaths[0], Opleiding);
             Assert.NotEmpty(instroomBlad.InstroomRijen);
         }
 
         [Fact]
         public void FilterOpVoltijdsEnNieuweStudentInstroomTest()
         {
-            InstroomBlad instroomBlad = new InstroomBlad(FilePathHandler.InstroomPaths[0], Opleiding);
+            InstroomBlad instroomBlad = new InstroomBlad(this.FilePathHandler.InstroomPaths[0], Opleiding);
             List<InstroomRij> instroomNieuweStudenten = instroomBlad.FilterOpNieuweStudent();
             List<InstroomRij> temp = instroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
 
@@ -38,7 +38,7 @@ namespace CalculationDomainTests
         [Fact]
         public void LeesBestandInDoorstroomTest()
         {
-            DoorstroomBlad doorstroomBlad = new DoorstroomBlad(FilePathHandler.DoorstroomPaths[0], Opleiding);
+            DoorstroomBlad doorstroomBlad = new DoorstroomBlad(this.FilePathHandler.DoorstroomPaths[0], Opleiding);
             Assert.NotEmpty(doorstroomBlad.DoorstroomRijen);
         }
 
@@ -49,7 +49,7 @@ namespace CalculationDomainTests
         [Fact]
         public void LeesBestandInUitstroomTest()
         {
-            UitstroomBlad uitstroomBlad = new UitstroomBlad(FilePathHandler.UitstroomPaths[0], Opleiding);
+            UitstroomBlad uitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomPaths[0], Opleiding);
             Assert.NotEmpty(uitstroomBlad.UitstroomRijen);
         }
 

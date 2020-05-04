@@ -1,6 +1,6 @@
-using Xunit;
-using DefaultDomain.ExcelReading;
 using CalculationDomain.ErasmusHogeSchool;
+using DefaultDomain.ExcelReading;
+using Xunit;
 
 namespace DefaultDomainTests
 {
@@ -11,9 +11,9 @@ namespace DefaultDomainTests
         [Fact]
         public void ReadEHBTest()
         {
-            Assert.NotEmpty(ExcelRead.ReadEHB(FilePathHandler.InstroomPaths[0]));
-            Assert.NotEmpty(ExcelRead.ReadEHB(FilePathHandler.DoorstroomPaths[0]));
-            Assert.NotEmpty(ExcelRead.ReadEHB(FilePathHandler.UitstroomPaths[0]));
+            Assert.NotEmpty(ExcelRead.ReadEHB(this.FilePathHandler.InstroomPaths[0]));
+            Assert.NotEmpty(ExcelRead.ReadEHB(this.FilePathHandler.DoorstroomPaths[0]));
+            Assert.NotEmpty(ExcelRead.ReadEHB(this.FilePathHandler.UitstroomPaths[0]));
         }
     }
 }

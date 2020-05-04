@@ -21,7 +21,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public FilePathHandler()
         {
-            SetPaths();
+            this.SetPaths();
         }
 
         private void SetPaths()

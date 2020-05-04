@@ -1,8 +1,8 @@
-﻿using CalculationDomain.ErasmusHogeSchool.Instroom;
-using CalculationDomain.ErasmusHogeSchool.Doorstroom;
+﻿using CalculationDomain.ErasmusHogeSchool.Doorstroom;
+using CalculationDomain.ErasmusHogeSchool.Instroom;
 using CalculationDomain.ErasmusHogeSchool.Uitstroom;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace CalculationDomain.ErasmusHogeSchool
 {
@@ -180,17 +180,17 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void GenerateAll()
         {
-            for (int i = 0; i < FilePathHandler.MaxAantalPaths; i++)
+            for (int i = 0; i < this.FilePathHandler.MaxAantalPaths; i++)
             {
-                Load(i);
+                this.Load(i);
 
-                GenerateInstroomData1(i + 1);
-                GenerateInstroomData2(i + 1);
-                GenerateInstroomData3(i + 1);
+                this.GenerateInstroomData1(i + 1);
+                this.GenerateInstroomData2(i + 1);
+                this.GenerateInstroomData3(i + 1);
 
-                GenerateDoorstroomData1(i + 1);
+                this.GenerateDoorstroomData1(i + 1);
 
-                GenerateUitstroomData1(i + 1);
+                this.GenerateUitstroomData1(i + 1);
             }
         }
 

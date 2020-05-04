@@ -1,5 +1,5 @@
-﻿using System.IO;
-using CalculationDomain.ErasmusHogeSchool;
+﻿using CalculationDomain.ErasmusHogeSchool;
+using System.IO;
 
 namespace GIP.Data
 {

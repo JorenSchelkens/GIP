@@ -23,7 +23,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void TestMethod()
         {
-            ChangeUitstroomSlide1(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            this.ChangeUitstroomSlide1(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
         }
 
         private void ChangeTableHeading(ITable table)
@@ -88,7 +88,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             if (index == 1)
             {
-                ChangeTableHeading(table);
+                this.ChangeTableHeading(table);
             }
 
             table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(voltijds);
@@ -114,7 +114,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             if (index == 1)
             {
-                ChangeTableHeading(table);
+                this.ChangeTableHeading(table);
             }
 
             table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
@@ -138,7 +138,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             if (index == 1)
             {
-                ChangeTableHeading(table);
+                this.ChangeTableHeading(table);
             }
 
             table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
@@ -162,7 +162,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             if (index == 1)
             {
-                ChangeTableHeading(table);
+                this.ChangeTableHeading(table);
             }
 
             table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
@@ -186,7 +186,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             if (index == 1)
             {
-                ChangeTableHeading(table);
+                this.ChangeTableHeading(table);
             }
 
             table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
@@ -213,7 +213,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             {
                 if (index == 1)
                 {
-                    ChangeTableHeadingSpecial(table);
+                    this.ChangeTableHeadingSpecial(table);
                 }
 
                 table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(zestigStp2);
@@ -248,7 +248,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
                 if (index == 1)
                 {
-                    ChangeTableHeading(table);
+                    this.ChangeTableHeading(table);
                 }
 
                 table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(zestigStp1);
@@ -306,7 +306,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             {
                 if (index == 1)
                 {
-                    ChangeTableHeading(table);
+                    this.ChangeTableHeading(table);
                 }
 
                 table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
@@ -321,7 +321,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
                 if (index == 1)
                 {
-                    ChangeTableHeading(table);
+                    this.ChangeTableHeading(table);
                 }
 
                 table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(asoP);
@@ -334,8 +334,8 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void Save()
         {
-            PowerPoint.Save($"Cijferanalyse {this.Opleiding}.pptx");
-            PowerPoint.Close();
+            this.PowerPoint.Save($"Cijferanalyse {this.Opleiding}.pptx");
+            this.PowerPoint.Close();
         }
     }
 }

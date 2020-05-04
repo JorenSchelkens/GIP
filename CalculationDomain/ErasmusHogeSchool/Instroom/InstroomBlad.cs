@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using DefaultDomain.ExcelReading;
+﻿using DefaultDomain.ExcelReading;
+using System.Collections.Generic;
 
 namespace CalculationDomain.ErasmusHogeSchool.Instroom
 {
@@ -9,8 +9,8 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
 
         public InstroomBlad(string filePath, string opleiding)
         {
-            List<Row> rows = Setup(filePath);
-            FilterOpOpleiding(rows, opleiding);
+            List<Row> rows = this.Setup(filePath);
+            this.FilterOpOpleiding(rows, opleiding);
         }
 
         public List<Row> Setup(string filePath)
@@ -22,7 +22,7 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
         {
             foreach (Row row in rows)
             {
-                if(row.columns[4] == opleiding)
+                if (row.columns[4] == opleiding)
                 {
                     InstroomRij instroomRij = new InstroomRij();
 
@@ -64,7 +64,7 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
 
             foreach (InstroomRij instroomRij in temp)
             {
-                if(instroomRij.Trajectschijfverdeling >= 54)
+                if (instroomRij.Trajectschijfverdeling >= 54)
                 {
                     instroomRijen.Add(instroomRij);
                 }
