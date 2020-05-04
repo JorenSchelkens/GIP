@@ -21,3 +21,12 @@ onderste tabel op basis van totaal aantal filter doorstroom
 Verpleegkunde 240sp niet 3 maar 4 jaar
 
 lege slide --> bachelors
+
+
+------------------------------
+
+Doorstroom: 
+volgt olod: Ja
+Nieuwe student: ja
+traject >= 54
+credits = 60
