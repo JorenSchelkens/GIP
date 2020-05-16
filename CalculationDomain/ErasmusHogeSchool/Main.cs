@@ -28,7 +28,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomPaths[index], this.Filter);
         }
 
-        private void GenerateInstroomData1(int index)
+        private List<InstroomRij> GenerateInstroomData1(int index)
         {
             List<InstroomRij> instroomNieuweStudenten = this.InstroomBlad.FilterOpNieuweStudent();
             List<InstroomRij> instroomVoltijdsTemp = this.InstroomBlad.FilterOpVoltijds(instroomNieuweStudenten);
@@ -56,6 +56,8 @@ namespace CalculationDomain.ErasmusHogeSchool
                 (int)Math.Round(aandelInTotaal),
                 (int)Math.Round(aandeelInVoltijds),
                 index);
+
+            return instroomVoltijdsTemp;
         }
 
         private void GenerateInstroomData2(int index)
@@ -116,7 +118,7 @@ namespace CalculationDomain.ErasmusHogeSchool
                 index);
         }
 
-        private void GenerateDoorstroomData1(int index)
+        private void GenerateDoorstroomData1(int index, List<InstroomRij> temp)
         {
             List<DoorstroomRij> doorstroomOLODTemp = this.DoorstroomBlad.FilterOpOLOD(this.DoorstroomBlad.DoorstroomRijen);
             List<DoorstroomRij> doorstroomOLODEnNieweStudentTemp = this.DoorstroomBlad.FilterOpNieuweStudent(doorstroomOLODTemp);
@@ -126,9 +128,9 @@ namespace CalculationDomain.ErasmusHogeSchool
             List<DoorstroomRij> doorstroomMeer45 = this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomOLODEnNieweStudentEnVoltijdsTemp);
             List<DoorstroomRij> doorstroomMinder45 = this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomOLODEnNieweStudentEnVoltijdsTemp);
 
-            double zestigStp1 = 0;
-            double tussenZestigStpEnVijfenveertig1 = 0;
-            double onderVijfenveertig1 = 0;
+            double zestigStp1 = ((double)doorstroom60.Count / temp.Count) * 100;
+            double tussenZestigStpEnVijfenveertig1 = ((double)doorstroomMeer45.Count / temp.Count) * 100;
+            double onderVijfenveertig1 = ((double)doorstroomMinder45.Count / temp.Count) * 100;
             double dropOut = 0;
 
 
@@ -146,6 +148,40 @@ namespace CalculationDomain.ErasmusHogeSchool
                 (int)Math.Round(tussenZestigStpEnVijfenveertig2),
                 (int)Math.Round(onderVijfenveertig2),
                 index);
+        }
+
+        private void GenerateDoorstroomData2()
+        {
+            List<DoorstroomRij> doorstroomNieweStudentTemp = this.DoorstroomBlad.FilterOpNieuweStudent(this.DoorstroomBlad.DoorstroomRijen);
+            List<DoorstroomRij> doorstroomNieweStudentEnVoltijdsTemp = this.DoorstroomBlad.FilterOpVoltijds(doorstroomNieweStudentTemp);
+
+            List<DoorstroomRij> doorstroomAso = this.DoorstroomBlad.FilterOpASO(doorstroomNieweStudentEnVoltijdsTemp);
+            List<DoorstroomRij> doorstroomTso = this.DoorstroomBlad.FilterOpTSO(doorstroomNieweStudentEnVoltijdsTemp);
+            List<DoorstroomRij> doorstroomKso = this.DoorstroomBlad.FilterOpKSO(doorstroomNieweStudentEnVoltijdsTemp);
+            List<DoorstroomRij> doorstroomBso = this.DoorstroomBlad.FilterOpBSO(doorstroomNieweStudentEnVoltijdsTemp);
+            List<DoorstroomRij> doorstroomAndereSO = this.DoorstroomBlad.FilterOpAndereSO(doorstroomNieweStudentEnVoltijdsTemp);
+
+            this.PowerPoint.ChangeDoorstroomSlide2(
+                (int)Math.Round((doorstroomAso.Count != 0) ? (double)this.DoorstroomBlad.FilterOp60Stp(doorstroomAso).Count / doorstroomAso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomAso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomAso).Count / doorstroomAso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomAso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomAso).Count / doorstroomAso.Count * 100.00 : 0.00),
+                doorstroomAso.Count,
+                (int)Math.Round((doorstroomTso.Count != 0) ? (double)this.DoorstroomBlad.FilterOp60Stp(doorstroomTso).Count / doorstroomTso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomTso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomTso).Count / doorstroomTso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomTso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomTso).Count / doorstroomTso.Count * 100.00 : 0.00),
+                doorstroomTso.Count,
+                (int)Math.Round((doorstroomKso.Count != 0) ? (double)this.DoorstroomBlad.FilterOp60Stp(doorstroomKso).Count / doorstroomKso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomKso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomKso).Count / doorstroomKso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomKso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomKso).Count / doorstroomKso.Count * 100.00 : 0.00),
+                doorstroomKso.Count,
+                (int)Math.Round((doorstroomKso.Count != 0) ? (double)this.DoorstroomBlad.FilterOp60Stp(doorstroomBso).Count / doorstroomBso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomKso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomBso).Count / doorstroomBso.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomKso.Count != 0) ? (double)this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomBso).Count / doorstroomBso.Count * 100.00 : 0.00),
+                doorstroomKso.Count,
+                (int)Math.Round((doorstroomAndereSO.Count != 0) ? (double)this.DoorstroomBlad.FilterOp60Stp(doorstroomAndereSO).Count / doorstroomAndereSO.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomAndereSO.Count != 0) ? (double)this.DoorstroomBlad.FilterOpTussen60En45Stp(doorstroomAndereSO).Count / doorstroomAndereSO.Count * 100.00 : 0.00),
+                (int)Math.Round((doorstroomAndereSO.Count != 0) ? (double)this.DoorstroomBlad.FilterOpMinderDan45Stp(doorstroomAndereSO).Count / doorstroomAndereSO.Count * 100.00 : 0.00),
+                doorstroomAndereSO.Count);
         }
 
         private void GenerateUitstroomData1(int index)
@@ -184,11 +220,16 @@ namespace CalculationDomain.ErasmusHogeSchool
             {
                 this.Load(i);
 
-                this.GenerateInstroomData1(i + 1);
+                List<InstroomRij> temp = this.GenerateInstroomData1(i + 1);
                 this.GenerateInstroomData2(i + 1);
                 this.GenerateInstroomData3(i + 1);
 
-                this.GenerateDoorstroomData1(i + 1);
+                this.GenerateDoorstroomData1(i + 1, temp);
+
+                if(this.FilePathHandler.MaxAantalPaths - 2 == i)
+                {
+                    this.GenerateDoorstroomData2();
+                }
 
                 this.GenerateUitstroomData1(i + 1);
             }

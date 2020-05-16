@@ -139,5 +139,87 @@ namespace CalculationDomain.ErasmusHogeSchool.Doorstroom
 
             return doorstroomRijen;
         }
+
+        public List<DoorstroomRij> FilterOpASO(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.SoOnderwijsvorm == "ASO" || doorstroomRij.SoOnderwijsvorm == "vASO")
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpTSO(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.SoOnderwijsvorm == "TSO" || doorstroomRij.SoOnderwijsvorm == "vTSO")
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpBSO(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.SoOnderwijsvorm == "BSO" || doorstroomRij.SoOnderwijsvorm == "vBSO")
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpKSO(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.SoOnderwijsvorm == "KSO" || doorstroomRij.SoOnderwijsvorm == "vKSO")
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
+
+        public List<DoorstroomRij> FilterOpAndereSO(List<DoorstroomRij> temp)
+        {
+            List<DoorstroomRij> doorstroomRijen = new List<DoorstroomRij>();
+
+            foreach (DoorstroomRij doorstroomRij in temp)
+            {
+                if (doorstroomRij.SoOnderwijsvorm != "ASO" &&
+                    doorstroomRij.SoOnderwijsvorm != "vASO" &&
+                    doorstroomRij.SoOnderwijsvorm != "TSO" &&
+                    doorstroomRij.SoOnderwijsvorm != "vTSO" &&
+                    doorstroomRij.SoOnderwijsvorm != "BSO" &&
+                    doorstroomRij.SoOnderwijsvorm != "vBSO" &&
+                    doorstroomRij.SoOnderwijsvorm != "KSO" &&
+                    doorstroomRij.SoOnderwijsvorm != "vKSO")
+                {
+                    doorstroomRijen.Add(doorstroomRij);
+                }
+            }
+
+            return doorstroomRijen;
+        }
     }
 }

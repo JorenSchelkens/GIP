@@ -5,10 +5,6 @@ namespace CalculationDomain.ErasmusHogeSchool
 {
     public class PowerPointClass
     {
-        //https://help.syncfusion.com/file-formats/presentation/getting-started
-        //https://www.asknumbers.com/centimeters-to-points.aspx
-        //https://help.syncfusion.com/file-formats/presentation/working-with-tables#modifying-the-table
-
         public IPresentation PowerPoint { get; set; }
         private string Opleiding { get; set; }
         private FilePathHandler FilePathHandler { get; set; } = new FilePathHandler();
@@ -23,7 +19,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void TestMethod()
         {
-            this.ChangeUitstroomSlide1(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+            
         }
 
         private void ChangeTableHeading(ITable table)
@@ -283,6 +279,57 @@ namespace CalculationDomain.ErasmusHogeSchool
                 text = slide.Shapes[24] as IShape;
                 text.TextBody.Paragraphs[0].Text = "";
             }
+        }
+
+        public void ChangeDoorstroomSlide2(
+            int aso60,
+            int asoTussen45En60,
+            int aso45,
+            int asoTotaal,
+            int tso60,
+            int tsoTussen45En60,
+            int tso45,
+            int tsoTotaal,
+            int kso60,
+            int ksoTussen45En60,
+            int kso45,
+            int ksoTotaal,
+            int bso60,
+            int bsoTussen45En60,
+            int bso45,
+            int bsoTotaal,
+            int buiteland60,
+            int buitelandTussen45En60,
+            int buiteland45,
+            int buitelandTotaal)
+        {
+            ISlide slide = this.PowerPoint.Slides[13];
+            ITable table = slide.Tables[0];
+
+            table.Columns[1].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso60);
+            table.Columns[1].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(asoTussen45En60);
+            table.Columns[1].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(aso45);
+            table.Columns[1].Cells[5].TextBody.Text = asoTotaal.ToString();
+
+            table.Columns[2].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(tso60);
+            table.Columns[2].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tsoTussen45En60);
+            table.Columns[2].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(tso45);
+            table.Columns[2].Cells[5].TextBody.Text = tsoTotaal.ToString();
+
+            table.Columns[3].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(kso60);
+            table.Columns[3].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(ksoTussen45En60);
+            table.Columns[3].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(kso45);
+            table.Columns[3].Cells[5].TextBody.Text = ksoTotaal.ToString();
+
+            table.Columns[4].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(bso60);
+            table.Columns[4].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(bsoTussen45En60);
+            table.Columns[4].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bso45);
+            table.Columns[4].Cells[5].TextBody.Text = bsoTotaal.ToString();
+
+            table.Columns[5].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland60);
+            table.Columns[5].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(buitelandTussen45En60);
+            table.Columns[5].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(buiteland45);
+            table.Columns[5].Cells[5].TextBody.Text = buitelandTotaal.ToString();
         }
 
         public void ChangeUitstroomSlide1(
