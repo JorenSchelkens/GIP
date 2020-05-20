@@ -1,4 +1,5 @@
 ﻿using DefaultDomain.ExcelReading;
+using System;
 using System.Collections.Generic;
 
 namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
@@ -51,7 +52,87 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
             return uitstroomRijen;
         }
 
-        public int FilterOpASO(List<UitstroomRij> temp)
+        public int FilterOpMinderDan3(List<UitstroomRij> temp, DateTime currentYear)
+        {
+            int total = 0;
+            DateTime date;
+            DateTime difference;
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
+                difference = currentYear.AddYears(-(date.Year));
+
+                if (difference.Year < 3)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int FilterOp3(List<UitstroomRij> temp, DateTime currentYear)
+        {
+            int total = 0;
+            DateTime date;
+            DateTime difference;
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
+                difference = currentYear.AddYears(-(date.Year));
+
+                if (difference.Year == 3)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int FilterOp4(List<UitstroomRij> temp, DateTime currentYear)
+        {
+            int total = 0;
+            DateTime date;
+            DateTime difference;
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
+                difference = currentYear.AddYears(-(date.Year));
+
+                if (difference.Year == 4)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public int FilterOpMeerDan4(List<UitstroomRij> temp, DateTime currentYear)
+        {
+            int total = 0;
+            DateTime date;
+            DateTime difference;
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
+                difference = currentYear.AddYears(-(date.Year));
+
+                if (difference.Year > 4)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
+        public List<UitstroomRij> FilterOpASO(List<UitstroomRij> temp)
         {
             List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
 
@@ -63,10 +144,10 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
                 }
             }
 
-            return uitstroomRijen.Count;
+            return uitstroomRijen;
         }
 
-        public int FilterOpTSO(List<UitstroomRij> temp)
+        public List<UitstroomRij> FilterOpTSO(List<UitstroomRij> temp)
         {
             List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
 
@@ -78,10 +159,10 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
                 }
             }
 
-            return uitstroomRijen.Count;
+            return uitstroomRijen;
         }
 
-        public int FilterOpBSO(List<UitstroomRij> temp)
+        public List<UitstroomRij> FilterOpBSO(List<UitstroomRij> temp)
         {
             List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
 
@@ -93,10 +174,10 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
                 }
             }
 
-            return uitstroomRijen.Count;
+            return uitstroomRijen;
         }
 
-        public int FilterOpKSO(List<UitstroomRij> temp)
+        public List<UitstroomRij> FilterOpKSO(List<UitstroomRij> temp)
         {
             List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
 
@@ -108,10 +189,10 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
                 }
             }
 
-            return uitstroomRijen.Count;
+            return uitstroomRijen;
         }
 
-        public int FilterOpAndereSO(List<UitstroomRij> temp)
+        public List<UitstroomRij> FilterOpAndereSO(List<UitstroomRij> temp)
         {
             List<UitstroomRij> uitstroomRijen = new List<UitstroomRij>();
 
@@ -130,7 +211,7 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
                 }
             }
 
-            return uitstroomRijen.Count;
+            return uitstroomRijen;
         }
     }
 }

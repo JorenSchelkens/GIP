@@ -6,5 +6,9 @@
         public string Stamnummer { get; set; }
         public bool DiplomaBehaald { get; set; }
 
+        public override string ToString()
+        {
+            return $"{SoOnderwijsvorm} , {Stamnummer}";
+        }
     }
 }

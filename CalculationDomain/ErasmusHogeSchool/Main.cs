@@ -188,18 +188,18 @@ namespace CalculationDomain.ErasmusHogeSchool
         {
             List<UitstroomRij> uitstroomDiplomaTemp = this.UitstroomBlad.FilterHeeftDiploma(this.UitstroomBlad.UitstroomRijen);
 
-            double aandelASO = ((double)this.UitstroomBlad.FilterOpASO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
-            double aandelTSO = ((double)this.UitstroomBlad.FilterOpTSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
-            double aandelBSO = ((double)this.UitstroomBlad.FilterOpBSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
-            double aandelKSO = ((double)this.UitstroomBlad.FilterOpKSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
-            double aandelAndereSO = ((double)this.UitstroomBlad.FilterOpAndereSO(uitstroomDiplomaTemp) / uitstroomDiplomaTemp.Count) * 100;
+            double aandelASO = ((double)this.UitstroomBlad.FilterOpASO(uitstroomDiplomaTemp).Count / uitstroomDiplomaTemp.Count) * 100;
+            double aandelTSO = ((double)this.UitstroomBlad.FilterOpTSO(uitstroomDiplomaTemp).Count / uitstroomDiplomaTemp.Count) * 100;
+            double aandelBSO = ((double)this.UitstroomBlad.FilterOpBSO(uitstroomDiplomaTemp).Count / uitstroomDiplomaTemp.Count) * 100;
+            double aandelKSO = ((double)this.UitstroomBlad.FilterOpKSO(uitstroomDiplomaTemp).Count / uitstroomDiplomaTemp.Count) * 100;
+            double aandelAndereSO = ((double)this.UitstroomBlad.FilterOpAndereSO(uitstroomDiplomaTemp).Count / uitstroomDiplomaTemp.Count) * 100;
 
             this.PowerPoint.ChangeUitstroomSlide1(
-                this.UitstroomBlad.FilterOpASO(uitstroomDiplomaTemp),
-                this.UitstroomBlad.FilterOpTSO(uitstroomDiplomaTemp),
-                this.UitstroomBlad.FilterOpBSO(uitstroomDiplomaTemp),
-                this.UitstroomBlad.FilterOpKSO(uitstroomDiplomaTemp),
-                this.UitstroomBlad.FilterOpAndereSO(uitstroomDiplomaTemp),
+                this.UitstroomBlad.FilterOpASO(uitstroomDiplomaTemp).Count,
+                this.UitstroomBlad.FilterOpTSO(uitstroomDiplomaTemp).Count,
+                this.UitstroomBlad.FilterOpBSO(uitstroomDiplomaTemp).Count,
+                this.UitstroomBlad.FilterOpKSO(uitstroomDiplomaTemp).Count,
+                this.UitstroomBlad.FilterOpAndereSO(uitstroomDiplomaTemp).Count,
                 uitstroomDiplomaTemp.Count,
                 (int)Math.Round(aandelASO),
                 (int)Math.Round(aandelTSO),
@@ -211,7 +211,52 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         private void GenerateStudieduur1(int index)
         {
+            List<UitstroomRij> uitstroomDiploma = this.UitstroomBlad.FilterHeeftDiploma(this.UitstroomBlad.UitstroomRijen);
 
+            int minderDanDrie = this.UitstroomBlad.FilterOpMinderDan3(uitstroomDiploma, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index));
+            int drie = this.UitstroomBlad.FilterOp3(uitstroomDiploma, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index));
+            int vier = this.UitstroomBlad.FilterOp4(uitstroomDiploma, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index));
+            int meerDanVier = this.UitstroomBlad.FilterOpMeerDan4(uitstroomDiploma, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index));
+
+            this.PowerPoint.ChangeStudieduurSlide1(
+                (int)Math.Round((uitstroomDiploma.Count != 0) ? (double)minderDanDrie / uitstroomDiploma.Count * 100.00 : 0.00),
+                (int)Math.Round((uitstroomDiploma.Count != 0) ? (double)drie / uitstroomDiploma.Count * 100.00 : 0.00),
+                (int)Math.Round((uitstroomDiploma.Count != 0) ? (double)vier / uitstroomDiploma.Count * 100.00 : 0.00),
+                (int)Math.Round((uitstroomDiploma.Count != 0) ? (double)meerDanVier / uitstroomDiploma.Count * 100.00 : 0.00),
+                index);
+        }
+
+        private void GenerateStudieduur2(int index)
+        {
+            List<UitstroomRij> uitstroomDiploma = this.UitstroomBlad.FilterHeeftDiploma(this.UitstroomBlad.UitstroomRijen);
+
+            List<UitstroomRij> uitstroomDiplomaAso = this.UitstroomBlad.FilterOpASO(uitstroomDiploma);
+            List<UitstroomRij> uitstroomDiplomaTso = this.UitstroomBlad.FilterOpTSO(uitstroomDiploma);
+            List<UitstroomRij> uitstroomDiplomaBso = this.UitstroomBlad.FilterOpBSO(uitstroomDiploma);
+            List<UitstroomRij> uitstroomDiplomaKso = this.UitstroomBlad.FilterOpKSO(uitstroomDiploma);
+            List<UitstroomRij> uitstroomDiplomaBlnd = this.UitstroomBlad.FilterOpAndereSO(uitstroomDiploma);
+
+            this.PowerPoint.ChangeStudieduurSlide2(
+                this.UitstroomBlad.FilterOpMinderDan3(uitstroomDiplomaAso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp3(uitstroomDiplomaAso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp4(uitstroomDiplomaAso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMeerDan4(uitstroomDiplomaAso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMinderDan3(uitstroomDiplomaTso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp3(uitstroomDiplomaTso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp4(uitstroomDiplomaTso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMeerDan4(uitstroomDiplomaTso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMinderDan3(uitstroomDiplomaBso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp3(uitstroomDiplomaBso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp4(uitstroomDiplomaBso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMeerDan4(uitstroomDiplomaBso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMinderDan3(uitstroomDiplomaKso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp3(uitstroomDiplomaKso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp4(uitstroomDiplomaKso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMeerDan4(uitstroomDiplomaKso, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMinderDan3(uitstroomDiplomaBlnd, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp3(uitstroomDiplomaBlnd, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOp4(uitstroomDiplomaBlnd, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)),
+                this.UitstroomBlad.FilterOpMeerDan4(uitstroomDiplomaBlnd, EHBFunctions.GetCurrentAcademicYearBasedOnIndex(index)));
         }
 
         public void GenerateAll()
@@ -226,12 +271,14 @@ namespace CalculationDomain.ErasmusHogeSchool
 
                 this.GenerateDoorstroomData1(i + 1, temp);
 
-                if(this.FilePathHandler.MaxAantalPaths - 2 == i)
+                if (i == 0)
                 {
                     this.GenerateDoorstroomData2();
+                    this.GenerateStudieduur2(i + 1);
                 }
 
                 this.GenerateUitstroomData1(i + 1);
+                this.GenerateStudieduur1(i + 1);
             }
         }
 

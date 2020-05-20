@@ -48,5 +48,17 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             return current;
         }
+
+        public static DateTime GetCurrentAcademicYearBasedOnIndex(int index)
+        {
+            DateTime current = DateTime.Now;
+
+            if (DateTime.Now.Month < 9)
+            {
+                current = current.AddYears(-1);
+            }
+
+            return current.AddYears(-(index - 1));
+        }
     }
 }
