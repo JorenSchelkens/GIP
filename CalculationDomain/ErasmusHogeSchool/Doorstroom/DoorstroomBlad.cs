@@ -221,5 +221,53 @@ namespace CalculationDomain.ErasmusHogeSchool.Doorstroom
 
             return doorstroomRijen;
         }
+
+        public int TotaalOpgenomeStudiePunten()
+        {
+            int temp = 0;
+
+            foreach (DoorstroomRij doorstroomRij in this.DoorstroomRijen)
+            {
+                temp += doorstroomRij.StudiepuntenTeVolgen;
+            }
+
+            return temp;
+        }
+
+        public int TotaalOpgenomeStudiePunten(List<DoorstroomRij> rows)
+        {
+            int temp = 0;
+
+            foreach (DoorstroomRij doorstroomRij in rows)
+            {
+                temp += doorstroomRij.StudiepuntenTeVolgen;
+            }
+
+            return temp;
+        }
+
+        public int TotaalVerworvenStudiePunten()
+        {
+            int temp = 0;
+
+            foreach (DoorstroomRij doorstroomRij in this.DoorstroomRijen)
+            {
+                temp += doorstroomRij.StudiepuntenCredits;
+            }
+
+            return temp;
+        }
+
+        public int TotaalVerworvenStudiePunten(List<DoorstroomRij> rows)
+        {
+            int temp = 0;
+
+            foreach (DoorstroomRij doorstroomRij in rows)
+            {
+                temp += doorstroomRij.StudiepuntenCredits;
+            }
+
+            return temp;
+        }
     }
 }

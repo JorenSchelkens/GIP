@@ -19,7 +19,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void TestMethod()
         {
-
+            this.ChangeStudierendementSlide1(1, 1, 0);
         }
 
         private void ChangeTableHeading(ITable table)
@@ -50,6 +50,26 @@ namespace CalculationDomain.ErasmusHogeSchool
             for (int i = table.Columns[0].Cells.Count - 1; i > 0; i--)
             {
                 table.Columns[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
+
+                currentYearTemp = currentYearTemp.AddYears(-1);
+                currentYear = currentYearTemp.Year.ToString();
+                nextYearTemp = nextYearTemp.AddYears(-1);
+                nextYear = nextYearTemp.Year.ToString();
+            }
+        }
+
+        private void ChangeTableHeading3(ITable table)
+        {
+            DateTime currentYearTemp = EHBFunctions.GetCurrentAcademicYear();
+            currentYearTemp = currentYearTemp.AddYears(-1);
+
+            string currentYear = currentYearTemp.Year.ToString();
+            DateTime nextYearTemp = currentYearTemp.AddYears(1);
+            string nextYear = nextYearTemp.Year.ToString();
+
+            for (int i = table.Rows[0].Cells.Count - 1; i > 0; i--)
+            {
+                table.Rows[0].Cells[i].TextBody.Text = EHBFunctions.FormatYearString(currentYear, nextYear);
 
                 currentYearTemp = currentYearTemp.AddYears(-1);
                 currentYear = currentYearTemp.Year.ToString();
@@ -504,6 +524,73 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             text = slide.Shapes[1] as IShape;
             text.TextBody.Text = $"4.2. Studieduur per type SO, uitstroom {EHBFunctions.FormatYearString(previousYear, currentYear)} \r in aantal studenten";
+        }
+
+        public void ChangeStudieduurSlide3(
+            int aso,
+            int tso,
+            int bso,
+            int kso,
+            int buiteland,
+            int index)
+        {
+            ISlide slide = this.PowerPoint.Slides[21];
+            ITable table = slide.Tables[0];
+
+            if (table.Columns.Count - index - 1 != 0)
+            {
+                if (index == 1)
+                {
+                    this.ChangeTableHeading(table);
+                }
+
+                table.Columns[table.Columns.Count - index - 1].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(aso);
+                table.Columns[table.Columns.Count - index - 1].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(tso);
+                table.Columns[table.Columns.Count - index - 1].Cells[3].TextBody.Text = EHBFunctions.FormatStringNonPercent(bso);
+                table.Columns[table.Columns.Count - index - 1].Cells[4].TextBody.Text = EHBFunctions.FormatStringNonPercent(kso);
+                table.Columns[table.Columns.Count - index - 1].Cells[5].TextBody.Text = EHBFunctions.FormatStringNonPercent(buiteland);
+            }
+        }
+
+        public void ChangeStudierendementSlide1(
+            int opgenomePunten,
+            int verworvenPunten,
+            int index)
+        {
+            ISlide slide = this.PowerPoint.Slides[24];
+            ITable table = slide.Tables[0];
+            //IPresentationChart chart = slide.Charts[0];
+
+            if (index == 1)
+            {
+                this.ChangeTableHeading3(table);
+            }
+
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(opgenomePunten);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(verworvenPunten);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent((int) Math.Round(((double)verworvenPunten / opgenomePunten) * 100.00));
+        }
+
+        public void ChangeStudierendementSlide2(
+            int aso,
+            int tso,
+            int bso,
+            int kso,
+            int index)
+        {
+            ISlide slide = this.PowerPoint.Slides[25];
+            ITable table = slide.Tables[0];
+            //IPresentationChart chart = slide.Charts[0];
+
+            if (index == 1)
+            {
+                this.ChangeTableHeading3(table);
+            }
+
+            table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringPercent(aso);
+            table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringPercent(tso);
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent(bso);
+            table.Columns[table.Columns.Count - index].Cells[4].TextBody.Text = EHBFunctions.FormatStringPercent(kso);
         }
 
         public void Save()

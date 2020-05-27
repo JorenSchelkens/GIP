@@ -92,6 +92,26 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
             return total;
         }
 
+        public int FilterOpMeerDan3(List<UitstroomRij> temp, DateTime currentYear)
+        {
+            int total = 0;
+            DateTime date;
+            DateTime difference;
+
+            foreach (UitstroomRij uitstroomRij in temp)
+            {
+                date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
+                difference = currentYear.AddYears(-(date.Year));
+
+                if (difference.Year > 3)
+                {
+                    total++;
+                }
+            }
+
+            return total;
+        }
+
         public int FilterOp4(List<UitstroomRij> temp, DateTime currentYear)
         {
             int total = 0;
