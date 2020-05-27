@@ -106,7 +106,7 @@ namespace CalculationDomain.ErasmusHogeSchool
             textPart.Text = this.Opleiding;
 
             shape = slide.Shapes[1] as IShape;
-            shape.TextBody.Text += $"\r{EHBFunctions.GetCurrentAcademicYear().Year}";
+            shape.TextBody.Text += $"\r{EHBFunctions.GetCurrentAcademicYear().Year} - {EHBFunctions.GetCurrentAcademicYear().AddYears(1).Year}";
         }
 
         public void ChangeInstroomSlide1(

@@ -22,9 +22,8 @@
 
             <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
 
-                <MatNumericUpDownField Label="Aantal PowerPoints genereren"
+                <MatNumericUpDownField Label="Aantal PowerPoints Te Genereren"
                                        @bind-Value=@aantalPowerPoints
-                                       Style="width: 100%"
                                        DecimalPlaces=0
                                        Minimum=1>
                 </MatNumericUpDownField>
@@ -230,14 +229,14 @@
 
     MemoryStream documentStream;
 
-    private void Generate()
+    private async Task Generate()
     {
-
         if (!(richtingen.Contains("")))
         {
             showDeel1 = false;
             showDeel2 = true;
             Toaster.Add("De PowerPoint wordt gegenereerd", MatToastType.Success, "Succes");
+            await Task.Delay(2);
             CreatePowerPoint();
             showDeel2 = false;
             showDeel3 = true;
@@ -246,7 +245,6 @@
         {
             Toaster.Add("Gelieve een richting aan te duiden", MatToastType.Warning, "Error");
         }
-
     }
 
     protected async void CreatePowerPoint()
