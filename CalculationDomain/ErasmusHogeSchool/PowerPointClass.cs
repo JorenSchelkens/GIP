@@ -568,7 +568,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
             table.Columns[table.Columns.Count - index].Cells[1].TextBody.Text = EHBFunctions.FormatStringNonPercent(opgenomePunten);
             table.Columns[table.Columns.Count - index].Cells[2].TextBody.Text = EHBFunctions.FormatStringNonPercent(verworvenPunten);
-            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent((int) Math.Round(((double)verworvenPunten / opgenomePunten) * 100.00));
+            table.Columns[table.Columns.Count - index].Cells[3].TextBody.Text = EHBFunctions.FormatStringPercent((int)Math.Round(((double)verworvenPunten / opgenomePunten) * 100.00));
         }
 
         public void ChangeStudierendementSlide2(

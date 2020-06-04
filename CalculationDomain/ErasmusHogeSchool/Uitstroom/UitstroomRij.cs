@@ -8,7 +8,7 @@
 
         public override string ToString()
         {
-            return $"{SoOnderwijsvorm} , {Stamnummer}";
+            return $"{this.SoOnderwijsvorm} , {this.Stamnummer}";
         }
     }
 }
