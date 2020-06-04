@@ -39,7 +39,7 @@ namespace GIP
             services.AddMatToaster(config =>
             {
                 config.Position = MatToastPosition.BottomRight;
-                config.PreventDuplicates = true;
+                config.PreventDuplicates = false;
                 config.NewestOnTop = true;
                 config.ShowCloseButton = true;
                 config.MaximumOpacity = 100;
