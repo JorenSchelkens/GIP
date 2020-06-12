@@ -19,7 +19,7 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         public void TestMethod()
         {
-            this.ChangeStudierendementSlide1(1, 1, 0);
+            
         }
 
         private void ChangeTableHeading(ITable table)

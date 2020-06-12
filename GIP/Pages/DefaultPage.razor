@@ -12,7 +12,8 @@
                 <MatNumericUpDownField Label="Aantal PowerPoints Te Genereren"
                                        Minimum=1
                                        Style="min-width: 500px;"
-                                       @bind-Value="@aantalPowerPoints">
+                                       @bind-Value="@aantalPowerPoints"
+                                       @onfocusout="CheckNumber">
                 </MatNumericUpDownField>
             </div>
 
@@ -34,7 +35,7 @@
         <div class="mat-layout-grid-inner">
 
             <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
-                <MatSelectItem @bind-Value="@opleiding" Items="@opleidingen"></MatSelectItem>
+                <MatSelectItem Label="Richting" @bind-Value="@opleiding" Items="@opleidingen"></MatSelectItem>
             </div>
 
             <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
@@ -179,6 +180,15 @@
 
         opleiding = "";
         geselecteerdeOpleidingen = new List<string>();
+    }
+
+    public void CheckNumber()
+    {
+        if(aantalPowerPoints < 1)
+        {
+            aantalPowerPoints = 1;
+            this.StateHasChanged();
+        }
     }
 
     public void Volgende1()

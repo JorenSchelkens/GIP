@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Main">
+    <Position X="6.5" Y="6.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="DoorstroomBlad" Type="CalculationDomain.ErasmusHogeSchool.Doorstroom.DoorstroomBlad">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.1" Y="-0.294" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="UitstroomBlad" Type="CalculationDomain.ErasmusHogeSchool.Uitstroom.UitstroomBlad">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.202" Y="0.122" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAkAAAAQAAAAAECAAgAkAAAHAQkAAQAQAAAAAAAAA=</HashCode>
+      <FileName>ErasmusHogeSchool\Main.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="InstroomBlad" />
+      <Property Name="DoorstroomBlad" />
+      <Property Name="UitstroomBlad" />
+      <Property Name="PowerPoint" />
+      <Property Name="FilePathHandler" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.PowerPointClass">
+    <Position X="2.75" Y="6" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>dggAAIBAIgABAAAEAAQAAAAAGAEABAAAAQEIgAEAAAA=</HashCode>
+      <FileName>ErasmusHogeSchool\PowerPointClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.FilePathHandler">
+    <Position X="2.75" Y="2.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABEACAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAABACgA=</HashCode>
+      <FileName>ErasmusHogeSchool\FilePathHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Uitstroom.UitstroomBlad">
+    <Position X="6.75" Y="3.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAIAAICACAACAAAAAAAAAAAAAAAABIAAEAIAAAAAA=</HashCode>
+      <FileName>ErasmusHogeSchool\Uitstroom\UitstroomBlad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="UitstroomRijen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Uitstroom.UitstroomRij">
+    <Position X="6.5" Y="1" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAQAAAAAAQAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ErasmusHogeSchool\Uitstroom\UitstroomRij.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Instroom.InstroomBlad">
+    <Position X="9.5" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAAACASAAAABAAAAAAAAAIAAAAAAAAAAIAAAAIA=</HashCode>
+      <FileName>ErasmusHogeSchool\Instroom\InstroomBlad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="InstroomRijen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Instroom.InstroomRij">
+    <Position X="12.5" Y="4.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAggAEAAAAAAAAAEAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ErasmusHogeSchool\Instroom\InstroomRij.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Doorstroom.DoorstroomBlad">
+    <Position X="9.5" Y="4.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAIAABCECAACABAAAQAAAAAIACAAAEAAAAIAAAQAA=</HashCode>
+      <FileName>ErasmusHogeSchool\Doorstroom\DoorstroomBlad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="DoorstroomRijen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="CalculationDomain.ErasmusHogeSchool.Doorstroom.DoorstroomRij">
+    <Position X="9.5" Y="1" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAgAAAAAASEAAAAAAIAEAAAAoAAAAAAI=</HashCode>
+      <FileName>ErasmusHogeSchool\Doorstroom\DoorstroomRij.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -33,7 +33,6 @@ namespace GIP
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
-            services.AddSingleton<WeatherForecastService>();
             services.AddScoped<PresentationService>();
 
             services.AddMatToaster(config =>
