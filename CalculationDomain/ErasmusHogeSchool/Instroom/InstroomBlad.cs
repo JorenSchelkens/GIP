@@ -1,5 +1,6 @@
 ﻿using DefaultDomain.ExcelReading;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CalculationDomain.ErasmusHogeSchool.Instroom
 {
@@ -7,15 +8,15 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
     {
         public List<InstroomRij> InstroomRijen { get; set; } = new List<InstroomRij>();
 
-        public InstroomBlad(string filePath, string opleiding)
+        public InstroomBlad(MemoryStream steam, string opleiding)
         {
-            List<Row> rows = this.Setup(filePath);
+            List<Row> rows = this.Setup(steam);
             this.FilterOpOpleiding(rows, opleiding);
         }
 
-        public List<Row> Setup(string filePath)
+        public List<Row> Setup(Stream stream)
         {
-            return ExcelRead.ReadEHB(filePath);
+            return ExcelRead.ReadEHB(stream);
         }
 
         public void FilterOpOpleiding(List<Row> rows, string opleiding)

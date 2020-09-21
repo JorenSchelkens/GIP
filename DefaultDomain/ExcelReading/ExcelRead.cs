@@ -35,5 +35,34 @@ namespace DefaultDomain.ExcelReading
 
             return rows;
         }
+
+        public static List<Row> ReadEHB(Stream stream)
+        {
+            List<Row> rows = new List<Row>();
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (ExcelPackage package = new ExcelPackage(stream))
+            {
+                //get the first worksheet in the workbook (First == 0)
+                ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                int colCount = worksheet.Dimension.End.Column;  //get Column Count
+                int rowCount = worksheet.Dimension.End.Row;     //get Row Count
+
+                for (int i = 2; i <= rowCount; i++)
+                {
+                    Row row = new Row();
+
+                    for (int j = 3; j <= colCount; j++)
+                    {
+                        row.columns.Add(worksheet.Cells[i, j].Value?.ToString().Trim());
+                    }
+
+                    rows.Add(row);
+                }
+            }
+
+            return rows;
+        }
     }
 }

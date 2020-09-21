@@ -3,6 +3,27 @@
 @inject IJSRuntime JS
 @inject PresentationService PresentationService
 
+@if (showDeel0)
+{
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+                <p>
+                    Upload alle Excels in volgende volgorde: 
+                    <br />
+                    @((MarkupString)EHBFunctions.GetFileOrderString())
+                </p>
+            </div>
+
+            <div class="mat-layout-grid-cell mat-layout-grid-cell-span-12">
+                <MatFileUpload OnChange="@MultipleFilesReady" AllowMultiple="true" Label="Upload alle bestanden"></MatFileUpload>
+            </div>
+
+        </div>
+    </div>
+}
+
 @if (showDeel1)
 {
     <div class="mat-layout-grid">
@@ -122,6 +143,7 @@
 
 @code {
 
+    private bool showDeel0;
     private bool showDeel1;
     private bool showDeel2;
     private bool showDeel3;
@@ -133,6 +155,7 @@
 
     private string opleiding;
     private List<string> geselecteerdeOpleidingen;
+    private List<MemoryStream> allExcels;
 
     MemoryStream documentStream;
 
@@ -164,13 +187,16 @@
 
     protected override void OnInitialized()
     {
+        allExcels = new List<MemoryStream>();
+
         Reset();
         this.StateHasChanged();
     }
 
     public void Reset()
     {
-        this.showDeel1 = true;
+        this.showDeel0 = true;
+        this.showDeel1 = false;
         this.showDeel2 = false;
         this.showDeel3 = false;
         this.showDeel4 = false;
@@ -184,11 +210,41 @@
 
     public void CheckNumber()
     {
-        if(aantalPowerPoints < 1)
+        if (aantalPowerPoints < 1)
         {
             aantalPowerPoints = 1;
             this.StateHasChanged();
         }
+    }
+
+    public async void MultipleFilesReady(IMatFileUploadEntry[] files)
+    {
+        MemoryStream temp;
+
+        if (files.Length == 16)
+        {
+            foreach (var file in files)
+            {
+                Console.WriteLine(file.Name);
+
+                temp = new MemoryStream();
+                await file.WriteToStreamAsync(temp);
+
+                this.allExcels.Add(temp);
+            }
+
+            this.Volgende0();
+        }
+    }
+
+    public async void Volgende0()
+    {
+        await Task.Delay(delay);
+
+        this.showDeel0 = false;
+        this.showDeel1 = true;
+
+        this.StateHasChanged();
     }
 
     public void Volgende1()
@@ -232,7 +288,7 @@
     {
         foreach (string richting in geselecteerdeOpleidingen)
         {
-            documentStream = PresentationService.CreatePowerPoint(richting);
+            documentStream = PresentationService.CreatePowerPoint(richting, allExcels);
             await JS.SaveAs($"Cijferanalyse {richting} - {DateTime.Now.ToString()}.pptx", documentStream.ToArray());
         }
 

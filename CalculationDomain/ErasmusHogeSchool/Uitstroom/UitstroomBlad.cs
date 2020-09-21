@@ -1,6 +1,7 @@
 ﻿using DefaultDomain.ExcelReading;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
 {
@@ -8,15 +9,15 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
     {
         public List<UitstroomRij> UitstroomRijen { get; set; } = new List<UitstroomRij>();
 
-        public UitstroomBlad(string filePath, string opleiding)
+        public UitstroomBlad(MemoryStream stream, string opleiding)
         {
-            List<Row> rows = this.Setup(filePath);
+            List<Row> rows = this.Setup(stream);
             this.FilterOpOpleiding(rows, opleiding);
         }
 
-        public List<Row> Setup(string filePath)
+        public List<Row> Setup(Stream stream)
         {
-            return ExcelRead.ReadEHB(filePath);
+            return ExcelRead.ReadEHB(stream);
         }
 
         public void FilterOpOpleiding(List<Row> rows, string opleiding)
@@ -56,14 +57,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            DateTime difference;
+            int difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.AddYears(-(date.Year));
+                difference = currentYear.Year - date.Year;
 
-                if (difference.Year < 3)
+                if (difference < 3)
                 {
                     total++;
                 }
@@ -76,14 +77,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            DateTime difference;
+            int difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.AddYears(-(date.Year));
+                difference = currentYear.Year - date.Year;
 
-                if (difference.Year == 3)
+                if (difference == 3)
                 {
                     total++;
                 }
@@ -96,14 +97,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            DateTime difference;
+            int difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.AddYears(-(date.Year));
+                difference = currentYear.Year - date.Year;
 
-                if (difference.Year > 3)
+                if (difference > 3)
                 {
                     total++;
                 }
@@ -116,14 +117,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            DateTime difference;
+            int difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.AddYears(-(date.Year));
+                difference = currentYear.Year - date.Year;
 
-                if (difference.Year == 4)
+                if (difference == 4)
                 {
                     total++;
                 }
@@ -136,14 +137,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            DateTime difference;
+            int difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.AddYears(-(date.Year));
+                difference = currentYear.Year - date.Year;
 
-                if (difference.Year > 4)
+                if (difference > 4)
                 {
                     total++;
                 }

@@ -3,6 +3,7 @@ using CalculationDomain.ErasmusHogeSchool.Instroom;
 using CalculationDomain.ErasmusHogeSchool.Uitstroom;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace CalculationDomain.ErasmusHogeSchool
 {
@@ -12,20 +13,22 @@ namespace CalculationDomain.ErasmusHogeSchool
         public DoorstroomBlad DoorstroomBlad { get; set; }
         public UitstroomBlad UitstroomBlad { get; set; }
         public PowerPointClass PowerPoint { get; set; }
-        private FilePathHandler FilePathHandler { get; set; } = new FilePathHandler();
+        private FilesHandler FilePathHandler { get; set; }
         private string Filter { get; set; }
 
-        public Main(string opleiding)
+        public Main(string opleiding, List<MemoryStream> excels)
         {
             this.Filter = opleiding;
-            this.PowerPoint = new PowerPointClass(opleiding);
+            this.FilePathHandler = new FilesHandler(excels);
+
+            this.PowerPoint = new PowerPointClass(opleiding, this.FilePathHandler); 
         }
 
         private void Load(int index)
         {
-            this.InstroomBlad = new InstroomBlad(this.FilePathHandler.InstroomPaths[index], this.Filter);
-            this.DoorstroomBlad = new DoorstroomBlad(this.FilePathHandler.DoorstroomPaths[index], this.Filter);
-            this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomPaths[index], this.Filter);
+            this.InstroomBlad = new InstroomBlad(this.FilePathHandler.InstroomExcels[index], this.Filter);
+            this.DoorstroomBlad = new DoorstroomBlad(this.FilePathHandler.DoorstroomExcels[index], this.Filter);
+            this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomExcels[index], this.Filter);
         }
 
         private List<InstroomRij> GenerateInstroomData1(int index)

@@ -7,10 +7,11 @@ namespace CalculationDomain.ErasmusHogeSchool
     {
         public IPresentation PowerPoint { get; set; }
         private string Opleiding { get; set; }
-        private FilePathHandler FilePathHandler { get; set; } = new FilePathHandler();
+        private FilesHandler FilePathHandler { get; set; }
 
-        public PowerPointClass(string opleiding)
+        public PowerPointClass(string opleiding, FilesHandler filePathHandler)
         {
+            this.FilePathHandler = filePathHandler;
             this.PowerPoint = Presentation.Open(this.FilePathHandler.PowerPointPath);
             this.Opleiding = opleiding;
 

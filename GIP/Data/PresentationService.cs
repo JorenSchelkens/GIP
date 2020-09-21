@@ -1,13 +1,14 @@
 ﻿using CalculationDomain.ErasmusHogeSchool;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GIP.Data
 {
     public class PresentationService
     {
-        public MemoryStream CreatePowerPoint(string opleiding)
+        public MemoryStream CreatePowerPoint(string opleiding, List<MemoryStream> excels)
         {
-            Main main = new Main(opleiding);
+            Main main = new Main(opleiding, excels);
             main.GenerateAll();
 
             //Save the PowerPoint Presentation as stream
