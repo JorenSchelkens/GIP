@@ -20,23 +20,23 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         private void SetFiles(List<MemoryStream> excels)
         {
-            for (int i = 0; i < excels.Count; i++)
+            for (int i = excels.Count - 1; i >= 0; i--)
             {
-                if(i < 5)
+                if(i == 15)
                 {
-                    this.DoorstroomExcels.Add(excels[i]);
+                    this.PowerPointPath = excels[i];
                 }
-                else if(i < 10)
-                {
-                    this.InstroomExcels.Add(excels[i]);
-                }
-                else if(i < 15)
+                else if(i < 15 && i > 9)
                 {
                     this.UitstroomExcels.Add(excels[i]);
                 }
-                else if (i == 15)
+                else if (i < 10 && i > 4)
                 {
-                    this.PowerPointPath = excels[i];
+                    this.InstroomExcels.Add(excels[i]);
+                }
+                else if (i < 5)
+                {
+                    this.DoorstroomExcels.Add(excels[i]);
                 }
             }
         }

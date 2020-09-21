@@ -57,14 +57,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            int difference;
+            DateTime difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.Year - date.Year;
+                difference = currentYear.AddYears(-(date.Year));
 
-                if (difference < 3)
+                if (difference.Year < 3)
                 {
                     total++;
                 }
@@ -77,14 +77,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            int difference;
+            DateTime difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.Year - date.Year;
+                difference = currentYear.AddYears(-(date.Year));
 
-                if (difference == 3)
+                if (difference.Year == 3)
                 {
                     total++;
                 }
@@ -97,14 +97,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            int difference;
+            DateTime difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.Year - date.Year;
+                difference = currentYear.AddYears(-(date.Year));
 
-                if (difference > 3)
+                if (difference.Year > 3)
                 {
                     total++;
                 }
@@ -117,14 +117,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            int difference;
+            DateTime difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.Year - date.Year;
+                difference = currentYear.AddYears(-(date.Year));
 
-                if (difference == 4)
+                if (difference.Year == 4)
                 {
                     total++;
                 }
@@ -137,14 +137,14 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             int total = 0;
             DateTime date;
-            int difference;
+            DateTime difference;
 
             foreach (UitstroomRij uitstroomRij in temp)
             {
                 date = new DateTime(int.Parse(uitstroomRij.Stamnummer), 1, 1);
-                difference = currentYear.Year - date.Year;
+                difference = currentYear.AddYears(-(date.Year));
 
-                if (difference > 4)
+                if (difference.Year > 4)
                 {
                     total++;
                 }
