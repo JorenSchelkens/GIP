@@ -23,31 +23,34 @@ namespace CalculationDomain.ErasmusHogeSchool.Doorstroom
         {
             foreach (Row row in rows)
             {
-                if (row.columns[10] == opleiding)
+                if (!string.IsNullOrEmpty(row.columns[10]))
                 {
-                    DoorstroomRij doorstroomRij = new DoorstroomRij();
-
-                    doorstroomRij.StudiepuntenTeVolgen = int.Parse(row.columns[0]);
-                    doorstroomRij.StudiepuntenCredits = int.Parse(row.columns[1]);
-                    doorstroomRij.VolgtOlodInSchijf1 = (row.columns[2] == "Ja") ? true : false;
-                    doorstroomRij.NieuweStudentInInstelling = (row.columns[3] == "Ja") ? true : false;
-
-                    if (row.columns[4].Contains("1/"))
+                    if (row.columns[10].ToLower() == opleiding.ToLower())
                     {
-                        int temp = row.columns[4].IndexOf("1/");
-                        string sub = row.columns[4].Substring(temp + 2, 2);
-                        doorstroomRij.Trajectschijfverdeling = int.Parse(sub);
+                        DoorstroomRij doorstroomRij = new DoorstroomRij();
+
+                        doorstroomRij.StudiepuntenTeVolgen = int.Parse(row.columns[0]);
+                        doorstroomRij.StudiepuntenCredits = int.Parse(row.columns[1]);
+                        doorstroomRij.VolgtOlodInSchijf1 = (row.columns[2] == "Ja") ? true : false;
+                        doorstroomRij.NieuweStudentInInstelling = (row.columns[3] == "Ja") ? true : false;
+
+                        if (row.columns[4].Contains("1/"))
+                        {
+                            int temp = row.columns[4].IndexOf("1/");
+                            string sub = row.columns[4].Substring(temp + 2, 2);
+                            doorstroomRij.Trajectschijfverdeling = int.Parse(sub);
+                        }
+
+                        doorstroomRij.SoOnderwijsvorm = row.columns[5];
+                        doorstroomRij.Stamnummer = row.columns[6].Substring(0, 4);
+                        doorstroomRij.KanDiplomaBehalen = row.columns[7];
+                        doorstroomRij.HeeftDiplomaBehaalt = (row.columns[8] == "Ja") ? true : false;
+                        doorstroomRij.Generatie = (row.columns[9] == "Ja") ? true : false;
+
+                        this.DoorstroomRijen.Add(doorstroomRij);
+
                     }
-
-                    doorstroomRij.SoOnderwijsvorm = row.columns[5];
-                    doorstroomRij.Stamnummer = row.columns[6].Substring(0, 4);
-                    doorstroomRij.KanDiplomaBehalen = row.columns[7];
-                    doorstroomRij.HeeftDiplomaBehaalt = (row.columns[8] == "Ja") ? true : false;
-                    doorstroomRij.Generatie = (row.columns[9] == "Ja") ? true : false;
-
-                    this.DoorstroomRijen.Add(doorstroomRij);
-
-                }
+                }  
             }
         }
 

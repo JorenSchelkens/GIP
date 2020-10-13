@@ -23,23 +23,26 @@ namespace CalculationDomain.ErasmusHogeSchool.Instroom
         {
             foreach (Row row in rows)
             {
-                if (row.columns[4] == opleiding)
+                if (!string.IsNullOrEmpty(row.columns[4]))
                 {
-                    InstroomRij instroomRij = new InstroomRij();
-
-                    instroomRij.NieuweStudent = (row.columns[0] == "Ja") ? true : false;
-                    instroomRij.GeneratieStudent = (row.columns[1] == "Ja") ? true : false;
-                    instroomRij.SoOnderwijsvorm = row.columns[2];
-
-                    if (row.columns[3].Contains("1/"))
+                    if (row.columns[4].ToLower() == opleiding.ToLower())
                     {
-                        int temp = row.columns[3].IndexOf("1/");
-                        string sub = row.columns[3].Substring(temp + 2, 2);
-                        instroomRij.Trajectschijfverdeling = int.Parse(sub);
+                        InstroomRij instroomRij = new InstroomRij();
+
+                        instroomRij.NieuweStudent = (row.columns[0] == "Ja") ? true : false;
+                        instroomRij.GeneratieStudent = (row.columns[1] == "Ja") ? true : false;
+                        instroomRij.SoOnderwijsvorm = row.columns[2];
+
+                        if (row.columns[3].Contains("1/"))
+                        {
+                            int temp = row.columns[3].IndexOf("1/");
+                            string sub = row.columns[3].Substring(temp + 2, 2);
+                            instroomRij.Trajectschijfverdeling = int.Parse(sub);
+                        }
+
+                        this.InstroomRijen.Add(instroomRij);
+
                     }
-
-                    this.InstroomRijen.Add(instroomRij);
-
                 }
             }
         }

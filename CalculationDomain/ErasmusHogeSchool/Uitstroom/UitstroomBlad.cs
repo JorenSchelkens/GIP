@@ -24,16 +24,19 @@ namespace CalculationDomain.ErasmusHogeSchool.Uitstroom
         {
             foreach (Row row in rows)
             {
-                if (row.columns[3] == opleiding)
+                if (!string.IsNullOrEmpty(row.columns[3]))
                 {
-                    UitstroomRij uitstroomRij = new UitstroomRij();
+                    if (row.columns[3].ToLower() == opleiding.ToLower())
+                    {
+                        UitstroomRij uitstroomRij = new UitstroomRij();
 
-                    uitstroomRij.SoOnderwijsvorm = row.columns[0];
-                    uitstroomRij.Stamnummer = row.columns[1].Substring(0, 4);
-                    uitstroomRij.DiplomaBehaald = (row.columns[2] == "Ja") ? true : false;
+                        uitstroomRij.SoOnderwijsvorm = row.columns[0];
+                        uitstroomRij.Stamnummer = row.columns[1].Substring(0, 4);
+                        uitstroomRij.DiplomaBehaald = (row.columns[2] == "Ja") ? true : false;
 
-                    this.UitstroomRijen.Add(uitstroomRij);
+                        this.UitstroomRijen.Add(uitstroomRij);
 
+                    }
                 }
             }
         }
