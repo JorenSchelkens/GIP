@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace CalculationDomain.ErasmusHogeSchool
 {
     public class FilesHandler
     {
-        public List<MemoryStream> DoorstroomExcels { get; set; } = new List<MemoryStream>();
-        public List<MemoryStream> InstroomExcels { get; set; } = new List<MemoryStream>();
-        public List<MemoryStream> UitstroomExcels { get; set; } = new List<MemoryStream>();
-        public MemoryStream PowerPointPath { get; set; }
+        public List<byte[]> DoorstroomExcels { get; set; } = new List<byte[]>();
+        public List<byte[]> InstroomExcels { get; set; } = new List<byte[]>();
+        public List<byte[]> UitstroomExcels { get; set; } = new List<byte[]>();
+        public byte[] PowerPointBytes { get; set; }
         public int MaxAantalPaths { get; set; } = 5;
 
         public FilesHandler(List<MemoryStream> excels)
@@ -24,21 +22,41 @@ namespace CalculationDomain.ErasmusHogeSchool
             {
                 if(i == 15)
                 {
-                    this.PowerPointPath = excels[i];
+                    this.PowerPointBytes = excels[i].ToArray();
                 }
                 else if(i < 15 && i > 9)
                 {
-                    this.UitstroomExcels.Add(excels[i]);
+                    this.UitstroomExcels.Add(excels[i].ToArray());
                 }
                 else if (i < 10 && i > 4)
                 {
-                    this.InstroomExcels.Add(excels[i]);
+                    this.InstroomExcels.Add(excels[i].ToArray());
                 }
                 else if (i < 5)
                 {
-                    this.DoorstroomExcels.Add(excels[i]);
+                    this.DoorstroomExcels.Add(excels[i].ToArray());
                 }
             }
+        }
+
+        public MemoryStream GetPowerPointStream()
+        {
+            return new MemoryStream(this.PowerPointBytes);
+        }
+
+        public MemoryStream GetInstroomStream(int index)
+        {
+            return new MemoryStream(this.InstroomExcels[index]);
+        }
+
+        public MemoryStream GetDoorstroomStream(int index)
+        {
+            return new MemoryStream(this.DoorstroomExcels[index]);
+        }
+
+        public MemoryStream GetUitstroomStream(int index)
+        {
+            return new MemoryStream(this.DoorstroomExcels[index]);
         }
     }
 }

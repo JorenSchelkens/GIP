@@ -12,7 +12,7 @@ namespace CalculationDomain.ErasmusHogeSchool
         public PowerPointClass(string opleiding, FilesHandler filePathHandler)
         {
             this.FilePathHandler = filePathHandler;
-            this.PowerPoint = Presentation.Open(this.FilePathHandler.PowerPointPath);
+            this.PowerPoint = Presentation.Open(this.FilePathHandler.GetPowerPointStream());
             this.Opleiding = opleiding;
 
             this.ChangeFirstSlide();

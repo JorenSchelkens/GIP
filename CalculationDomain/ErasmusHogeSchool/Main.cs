@@ -26,9 +26,9 @@ namespace CalculationDomain.ErasmusHogeSchool
 
         private void Load(int index)
         {
-            this.InstroomBlad = new InstroomBlad(this.FilePathHandler.InstroomExcels[index], this.Filter);
-            this.DoorstroomBlad = new DoorstroomBlad(this.FilePathHandler.DoorstroomExcels[index], this.Filter);
-            this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.UitstroomExcels[index], this.Filter);
+            this.InstroomBlad = new InstroomBlad(this.FilePathHandler.GetInstroomStream(index), this.Filter);
+            this.DoorstroomBlad = new DoorstroomBlad(this.FilePathHandler.GetDoorstroomStream(index), this.Filter);
+            this.UitstroomBlad = new UitstroomBlad(this.FilePathHandler.GetUitstroomStream(index), this.Filter);
         }
 
         private List<InstroomRij> GenerateInstroomData1(int index)
